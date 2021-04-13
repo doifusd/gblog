@@ -35,7 +35,7 @@ func (e *Error) Msgf(args []interface{}) string {
 	return fmt.Sprintf(e.msg, args...)
 }
 
-func (e *Error) Details() string {
+func (e *Error) Details() []string {
 	return e.details
 }
 
@@ -51,7 +51,7 @@ func (e *Error) WithDetails(details ...string) *Error {
 func (e *Error) StatusCode() int {
 	switch e.Code() {
 	case Success.Code():
-		return http.StatusOk
+		return http.StatusOK
 	case ServerError.Code():
 		return http.StatusInternalServerError
 	case IntvalidParams.Code():
@@ -68,5 +68,4 @@ func (e *Error) StatusCode() int {
 		return http.StatusTooManyRequests
 	}
 	return http.StatusInternalServerError
-
 }

@@ -23,6 +23,13 @@ const (
 	LevelPanic
 )
 
+type Logger struct {
+	newLogger *log.Logger
+	ctx       context.Context
+	fields    Fields
+	callers   []string
+}
+
 func (l Level) String() string {
 	switch l {
 	case LevelDebug:
@@ -32,20 +39,13 @@ func (l Level) String() string {
 	case LevelWarn:
 		return "warn"
 	case LevelError:
-		return "erro"
+		return "error"
 	case LevelFatal:
 		return "fatal"
 	case LevelPanic:
 		return "panic"
 	}
 	return ""
-}
-
-type Logger struct {
-	newLogger *log.Logger
-	ctx       context.Context
-	fields    Fields
-	callers   []string
 }
 
 func NewLogger(w io.Writer, prefix string, flag int) *Logger {
@@ -82,7 +82,7 @@ func (l *Logger) WithCaller(skip int) *Logger {
 		f := runtime.FuncForPC(pc)
 		ll.callers = []string{fmt.Sprintf("%s: %d %s", file, line, f.Name())}
 	}
-	return nil
+	return ll
 }
 
 func (l *Logger) WithCallerFrames() *Logger {
@@ -106,7 +106,6 @@ func (l *Logger) WithCallerFrames() *Logger {
 
 func (l *Logger) JSONFormat(level Level, message string) map[string]interface{} {
 	data := make(Fields, len(l.fields)+4)
-	fmt.Println(data)
 	data["level"] = level.String()
 	data["time"] = time.Now().Local().UnixNano()
 	data["message"] = message
@@ -134,9 +133,9 @@ func (l *Logger) Output(level Level, message string) {
 	case LevelError:
 		l.newLogger.Print(content)
 	case LevelFatal:
-		l.newLogger.Print(content)
+		l.newLogger.Fatal(content)
 	case LevelPanic:
-		l.newLogger.Print(content)
+		l.newLogger.Panic(content)
 	}
 }
 

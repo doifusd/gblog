@@ -1,0 +1,7 @@
+2021/04/13 21:47:26 {"level":"info","message":"eds:go-blog/blog","time":1618321646097949000}
+2021/04/13 21:47:51 {"callers":["/Users/sky/Documents/blog/main.go: 26 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618321671797696000}
+2021/04/13 21:48:09 {"callers":["/Users/sky/Documents/blog/main.go: 26 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618321689139357000}
+2021/04/13 22:14:07 {"callers":["/Users/sky/Documents/blog/main.go: 26 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618323247999075000}
+2021/04/13 22:16:12 {"callers":["/Users/sky/Documents/blog/main.go: 26 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618323372093118000}
+2021/04/13 22:43:28 {"callers":["/Users/sky/Documents/blog/main.go: 26 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618325008892282000}
+2021/04/13 22:47:26 {"callers":["/Users/sky/Documents/blog/main.go: 26 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618325246933865000}

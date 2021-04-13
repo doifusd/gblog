@@ -29,7 +29,12 @@ func init() {
 	}
 }
 
+// @title 博客系统
+// @version 1.0
+// @description golang blog
+// @termsOfService
 func main() {
+	global.Logger.Infof("%s:go-blog/%s", "eds", "blog")
 	gin.SetMode(global.ServerSetting.RunMode)
 	router := routers.NewRoter()
 	s := &http.Server{
@@ -39,7 +44,6 @@ func main() {
 		WriteTimeout:   global.ServerSetting.WriteTimeout,
 		MaxHeaderBytes: 1 << 20,
 	}
-	global.Logger.Infof("%s: go-blog/%s", "eds", "blog-service")
 	s.ListenAndServe()
 }
 
