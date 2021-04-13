@@ -3,11 +3,13 @@ module blog
 go 1.15
 
 require (
+	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751
 	github.com/cpuguy83/go-md2man/v2 v2.0.0 // indirect
 	github.com/fsnotify/fsnotify v1.4.9 // indirect
 	github.com/gin-gonic/gin v1.7.1
 	github.com/go-openapi/spec v0.20.3 // indirect
 	github.com/go-openapi/swag v0.19.15 // indirect
+	github.com/go-playground/locales v0.13.0
 	github.com/go-playground/validator/v10 v10.5.0 // indirect
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/golang/protobuf v1.5.2 // indirect
@@ -31,7 +33,7 @@ require (
 	github.com/stretchr/objx v0.2.0 // indirect
 	github.com/swaggo/files v0.0.0-20190704085106-630677cd5c14 // indirect
 	github.com/swaggo/gin-swagger v1.2.0
-	github.com/swaggo/swag v1.7.0 // indirect
+	github.com/swaggo/swag v1.7.0
 	github.com/ugorji/go v1.2.5 // indirect
 	github.com/urfave/cli v1.22.5 // indirect
 	golang.org/x/crypto v0.0.0-20210322153248-0c34fe9e7dc2 // indirect

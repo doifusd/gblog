@@ -9,6 +9,11 @@ import (
 
 type Article struct{}
 
+type AticleSwagger struct {
+	List  []*Article
+	Pager *app.Pager
+}
+
 func NewArticle() Article {
 	return Article{}
 }

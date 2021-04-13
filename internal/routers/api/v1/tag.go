@@ -1,8 +1,17 @@
 package v1
 
-import "github.com/gin-gonic/gin"
+import (
+	"blog/pkg/app"
+
+	"github.com/gin-gonic/gin"
+)
 
 type Tag struct{}
+
+type TagSwagger struct {
+	List  []*Tag
+	Pager *app.Pager
+}
 
 func NewTag() Tag {
 	return Tag{}
