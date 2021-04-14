@@ -60,6 +60,10 @@ func NewDBEngine(databaseSetting *setting.DatabaseSettings) (*gorm.DB, error) {
 	// }
 	// db.SingularTable(true)
 
+	db.Callback().Create().Replace("gorm:update_time_stamp", updateTimeStampForCreateCallback)
+	db.Callback().Update().Replace("gorm:update_time_stamp", updateTimeStampForUpdateCallback)
+	db.Callback().Delete().Replace("gorm:delete", deleteCallback)
+
 	//TODO ?
 	sqlDB, err := db.DB()
 
@@ -69,6 +73,7 @@ func NewDBEngine(databaseSetting *setting.DatabaseSettings) (*gorm.DB, error) {
 	sqlDB.SetMaxOpenConns(databaseSetting.MaxOpenConns)
 	// SetConnMaxLifetime 设置了连接可复用的最大时间。
 	// sqlDB.SetConnMaxLifetime(time.Hour)
+
 	return db, nil
 }
 

@@ -4,3 +4,4 @@ go get -u github.com/swaggo/files
 go get -u github.com/alecthomas/template
 swag -v 
 swag init
+http://127.0.0.1:8000/swagger/index.html#
