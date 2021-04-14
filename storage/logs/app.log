@@ -9,3 +9,7 @@
 2021/04/14 07:01:12 {"callers":["/home/sky/Documents/go-blog/main.go: 26 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618354872221652558}
 2021/04/14 07:04:54 {"callers":["/home/sky/Documents/go-blog/main.go: 26 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618355094190593282}
 2021/04/14 07:12:54 {"callers":["/home/sky/Documents/go-blog/main.go: 26 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618355574234307923}
+2021/04/14 20:26:20 {"callers":["/home/sky/Documents/go-blog/main.go: 26 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618403180759447338}
+2021/04/14 20:50:55 {"callers":["/home/sky/Documents/go-blog/main.go: 26 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618404655639219480}
+2021/04/14 20:53:10 {"callers":["/home/sky/Documents/go-blog/main.go: 26 main.init.0"],"level":"error","message":"app.BindAndValid errs: State必须是[0 1]中的一个","time":1618404790864021858}
+2021/04/14 20:53:32 {"callers":["/home/sky/Documents/go-blog/main.go: 26 main.init.0"],"level":"error","message":"app.BindAndValid errs: State必须是[0 1]中的一个","time":1618404812715878559}
