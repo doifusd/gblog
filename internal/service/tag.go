@@ -1,28 +1,27 @@
 package service
 
-type CountTagRequest struct {
-	Name  string `form:"name" binding:"max=100"`
-	State uint8  `form:"state,default=1" binding:"oneof=0 1"`
+import (
+	"blog/internal/model"
+	"blog/internal/request"
+	"blog/pkg/app"
+)
+
+func (svc *Service) CountTag(param *request.CountTagRequest) (int64, error) {
+	return svc.dao.CountTag(param.Name, param.State)
 }
 
-type TagListRequest struct {
-	Name  string `form:"name" binding:"max=100"`
-	State uint8  `form:"state,default=1" binding:"oneof=0 1"`
+func (svc *Service) GetTagList(param *request.TagListRequest, pager *app.Pager) ([]*model.Tag, error) {
+	return svc.dao.GetTagList(param.Name, param.State, pager.Page, pager.PageSize)
 }
 
-type CrateTagResquest struct {
-	Name      string `form:"name" binding:"required,min=3,max=100"`
-	CreatedBy string `form:"created_by" binding:"required,min=3,max=100"`
-	State     uint8  `form:"state,default=1" binding:"oneof=0 1"`
+func (svc *Service) CreateTag(param *request.CrateTagResquest) error {
+	return svc.dao.CreateTag(param.Name, param.State, param.CreatedBy)
 }
 
-type UpdateTagRequest struct {
-	ID         uint32 `form:"id" binding:"required,gte=1"`
-	Name       string `form:"name" binding:"min=3,max=100"`
-	State      uint8  `form:"state,default=1" binding:"required,oneof=0 1"`
-	ModifiedBy string `form:"modified_by" binding:"required,min=3,max=100"`
+func (svc *Service) UpdateTag(param *request.UpdateTagRequest) error {
+	return svc.dao.UpdateTag(param.ID, param.Name, param.State, param.ModifiedBy)
 }
 
-type DeleteTagRequest struct {
-	ID uint32 `form:"id" binding:"required,gte=1"`
+func (svc *Service) DeleteTag(param *request.DeleteTagRequest) error {
+	return svc.dao.DeleteTag(param.ID)
 }

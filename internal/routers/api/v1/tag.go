@@ -2,6 +2,8 @@ package v1
 
 import (
 	"blog/global"
+	"blog/internal/request"
+	"blog/internal/service"
 	"blog/pkg/app"
 	"blog/pkg/errcode"
 
@@ -30,19 +32,30 @@ func NewTag() Tag {
 // @Failure 500 {object} errcode.Error "内部错误"
 // @Router /api/v1/tags [get]
 func (t Tag) List(c *gin.Context) {
-	params := struct {
-		Name  string `form:"name" binding:"max=100"`
-		State uint8  `form:"state,default=1" binding:"oneof=0 1"`
-	}{}
+	param := request.TagListRequest{}
 	resp := app.NewResponse(c)
-	valid, errs := app.BindAndValid(c, &params)
+	valid, errs := app.BindAndValid(c, &param)
 	if !valid {
 		global.Logger.Errorf("app.BindAndValid errs: %v", errs)
 		errRsp := errcode.IntvalidParams.WithDetails(errs.Errors()...)
 		resp.ToErrorResponse(errRsp)
 		return
 	}
-	resp.ToResponse(gin.H{})
+	svc := service.New(c.Request.Context())
+	pager := app.Pager{Page: app.GetPage(c), PageSize: app.GetPageSize(c)}
+	totalRows, err := svc.CountTag(&request.CountTagRequest{Name: param.Name, State: param.State})
+	if err != nil {
+		global.Logger.Errorf("svc.CountTag errs: %v", errs)
+		resp.ToErrorResponse(errcode.ErrorCountTagFail)
+		return
+	}
+	tags, err := svc.GetTagList(&param, &pager)
+	if err != nil {
+		global.Logger.Errorf("svc.GetTaglist errs: %v", errs)
+		resp.ToErrorResponse(errcode.ErrorGetTagListFail)
+		return
+	}
+	resp.ToResponseList(tags, int(totalRows))
 	return
 }
 
