@@ -5,7 +5,7 @@ import (
 	"blog/pkg/app"
 )
 
-func (d *Dao) CountTag(name string, state uin8) (int64, error) {
+func (d *Dao) CountTag(name string, state uint8) (int64, error) {
 	tag := model.Tag{Name: name, State: state}
 	return tag.Count(d.engine)
 }
@@ -26,14 +26,22 @@ func (d *Dao) CreateTag(name string, state uint8, createdBy string) error {
 
 func (d *Dao) UpdateTag(id uint32, name string, state uint8, modifiedBy string) error {
 	tag := model.Tag{
-		Name:  name,
-		State: state,
-		Model: &model.Model{ID: id, ModifiedBy: modifiedBy},
+		// Name:  name,
+		// State: state,
+		// Model: &model.Model{ID: id, ModifiedBy: modifiedBy},
+		Model: &model.Model{ID: id},
 	}
-	return tag.Update(d.engine)
+	values := map[string]interface{}{
+		"state":       state,
+		"modified_by": modifiedBy,
+	}
+	if name != "" {
+		values["name"] = name
+	}
+	return tag.Update(d.engine, values)
 }
 
-func (d *Dao) DeleteTag(id unit32) error {
+func (d *Dao) DeleteTag(id uint32) error {
 	tag := model.Tag{Model: &model.Model{ID: id}}
 	return tag.Delete(d.engine)
 }

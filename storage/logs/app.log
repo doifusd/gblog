@@ -13,3 +13,19 @@
 2021/04/14 20:50:55 {"callers":["/home/sky/Documents/go-blog/main.go: 26 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618404655639219480}
 2021/04/14 20:53:10 {"callers":["/home/sky/Documents/go-blog/main.go: 26 main.init.0"],"level":"error","message":"app.BindAndValid errs: State必须是[0 1]中的一个","time":1618404790864021858}
 2021/04/14 20:53:32 {"callers":["/home/sky/Documents/go-blog/main.go: 26 main.init.0"],"level":"error","message":"app.BindAndValid errs: State必须是[0 1]中的一个","time":1618404812715878559}
+2021/04/15 20:34:43 {"callers":["/home/sky/Documents/go-blog/main.go: 26 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618490083849940306}
+2021/04/15 20:35:59 {"callers":["/home/sky/Documents/go-blog/main.go: 26 main.init.0"],"level":"error","message":"app.BindAndValid errs: Name长度必须至少为3个字符","time":1618490159350764301}
+2021/04/15 20:40:08 {"callers":["/home/sky/Documents/go-blog/main.go: 26 main.init.0"],"level":"error","message":"app.BindAndValid errs: Name长度必须至少为3个字符,State为必填字段,ID为必填字段","time":1618490408676636634}
+2021/04/15 20:50:57 {"callers":["/home/sky/Documents/go-blog/main.go: 26 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618491057389331592}
+2021/04/15 20:51:03 {"callers":["/home/sky/Documents/go-blog/main.go: 26 main.init.0"],"level":"error","message":"app.BindAndValid errs: ID为必填字段,Name长度必须至少为3个字符,State为必填字段","time":1618491063804813575}
+2021/04/15 20:51:56 {"callers":["/home/sky/Documents/go-blog/main.go: 26 main.init.0"],"level":"error","message":"app.BindAndValid errs: Name长度必须至少为3个字符,State为必填字段","time":1618491116939439837}
+2021/04/15 20:54:12 {"callers":["/home/sky/Documents/go-blog/main.go: 26 main.init.0"],"level":"error","message":"app.BindAndValid errs: Name长度必须至少为3个字符,State为必填字段","time":1618491252357283136}
+2021/04/15 20:54:32 {"callers":["/home/sky/Documents/go-blog/main.go: 26 main.init.0"],"level":"error","message":"app.BindAndValid errs: Name长度必须至少为3个字符,State为必填字段","time":1618491272141606064}
+2021/04/15 20:58:31 {"callers":["/home/sky/Documents/go-blog/main.go: 26 main.init.0"],"level":"error","message":"app.BindAndValid errs: ","time":1618491511639172595}
+2021/04/15 20:58:48 {"callers":["/home/sky/Documents/go-blog/main.go: 26 main.init.0"],"level":"error","message":"app.BindAndValid errs: Name长度必须至少为3个字符,State为必填字段","time":1618491528239362691}
+2021/04/15 21:00:09 {"callers":["/home/sky/Documents/go-blog/main.go: 26 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618491609838724580}
+2021/04/15 21:01:17 {"callers":["/home/sky/Documents/go-blog/main.go: 26 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618491677517075894}
+2021/04/15 21:02:17 {"callers":["/home/sky/Documents/go-blog/main.go: 26 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618491737351140820}
+2021/04/15 21:02:43 {"callers":["/home/sky/Documents/go-blog/main.go: 26 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618491763620066284}
+2021/04/15 21:03:59 {"callers":["/home/sky/Documents/go-blog/main.go: 26 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618491839435147541}
+2021/04/15 21:04:15 {"callers":["/home/sky/Documents/go-blog/main.go: 26 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618491855764875463}

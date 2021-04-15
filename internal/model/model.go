@@ -60,9 +60,9 @@ func NewDBEngine(databaseSetting *setting.DatabaseSettings) (*gorm.DB, error) {
 	// }
 	// db.SingularTable(true)
 
-	db.Callback().Create().Replace("gorm:update_time_stamp", updateTimeStampForCreateCallback)
-	db.Callback().Update().Replace("gorm:update_time_stamp", updateTimeStampForUpdateCallback)
-	db.Callback().Delete().Replace("gorm:delete", deleteCallback)
+	// db.Callback().Create().Replace("gorm:update_time_stamp", updateTimeStampForCreateCallback)
+	// db.Callback().Update().Replace("gorm:update_time_stamp", updateTimeStampForUpdateCallback)
+	// db.Callback().Delete().Replace("gorm:delete", deleteCallback)
 
 	//TODO ?
 	sqlDB, err := db.DB()
@@ -77,6 +77,7 @@ func NewDBEngine(databaseSetting *setting.DatabaseSettings) (*gorm.DB, error) {
 	return db, nil
 }
 
+/* TODO
 func updateTimeStampForCreateCallback(scope *gorm.Scope) {
 	if !scope.HasError() {
 		nowTime := time.Now().Unix()
@@ -128,7 +129,7 @@ func deleteCallback(scope *gorm.Scope) {
 			)).Exec()
 		}
 	}
-}
+}*/
 
 func addExtraSpaceIfExist(str string) string {
 	if str != "" {
