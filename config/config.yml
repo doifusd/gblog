@@ -28,6 +28,12 @@ Database:
   ParseTime: True
   MaxIdleConns: 10
   MaxOpenConns: 10
+JWT:
+  Secret: doifusd
+  Issuer: sky
+  Expire: 7200
+
+
 
 
 

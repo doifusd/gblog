@@ -29,3 +29,6 @@
 2021/04/15 21:02:43 {"callers":["/home/sky/Documents/go-blog/main.go: 26 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618491763620066284}
 2021/04/15 21:03:59 {"callers":["/home/sky/Documents/go-blog/main.go: 26 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618491839435147541}
 2021/04/15 21:04:15 {"callers":["/home/sky/Documents/go-blog/main.go: 26 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618491855764875463}
+2021/04/16 07:07:48 {"callers":["/home/sky/Documents/go-blog/main.go: 26 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618528068041259208}
+2021/04/16 07:19:47 {"callers":["/home/sky/Documents/go-blog/main.go: 26 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618528787104999546}
+2021/04/16 07:28:07 {"callers":["/home/sky/Documents/go-blog/main.go: 26 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618529287446066354}
