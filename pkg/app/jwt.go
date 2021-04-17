@@ -1,6 +1,7 @@
 package app
 
 import (
+	"blog/global"
 	"blog/pkg/util"
 	"time"
 
@@ -28,13 +29,13 @@ func GenerateToken(appKey, appSecret string) (string, error) {
 			Issuer:    global.JWTSetting.Issuer,
 		},
 	}
-	tokenClaims := jwt.NewWithClaims(jwt.SigningMehtodHs256, claims)
+	tokenClaims := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	token, err := tokenClaims.SignedString(GetJWTSecret)
 	return token, err
 }
 
 func ParseToken(token string) (*Claims, error) {
-	tokenClaims, err := jwt.ParseWithClaims(token, &Claims{}, func(token *jwt.Token) {
+	tokenClaims, err := jwt.ParseWithClaims(token, &Claims{}, func(token *jwt.Token) (interface{}, error) {
 		return GetJWTSecret(), nil
 	})
 	if tokenClaims != nil {

@@ -2,6 +2,7 @@ package setting
 
 import "time"
 
+//ServerSettings 服务配置
 type ServerSettings struct {
 	RunMode      string
 	HttpPort     string
@@ -9,6 +10,7 @@ type ServerSettings struct {
 	WriteTimeout time.Duration
 }
 
+// AppSettings 项目配置
 type AppSettings struct {
 	DefaultPageSize      int
 	MaxPageSize          int
@@ -21,6 +23,7 @@ type AppSettings struct {
 	UploadImageAllowExts []string
 }
 
+//DatabaseSettings 数据库配置
 type DatabaseSettings struct {
 	DBType       string
 	UserName     string
@@ -35,6 +38,14 @@ type DatabaseSettings struct {
 	MaxOpenConns int
 }
 
+//JWTSettings jwt 配置
+type JWTSettings struct {
+	Secret string
+	Issuer string
+	Expire time.Duration
+}
+
+//ReadSection 读取配置
 func (s *Setting) ReadSection(k string, v interface{}) error {
 	err := s.vp.UnmarshalKey(k, v)
 	if err != nil {

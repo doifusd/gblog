@@ -3,6 +3,7 @@ package routers
 import (
 	"blog/global"
 	"blog/internal/middleware"
+	"blog/internal/routers/api"
 	v1 "blog/internal/routers/api/v1"
 	"net/http"
 
@@ -26,6 +27,8 @@ func NewRoter() *gin.Engine {
 	upload := NewUpload()
 	r.POST("upload/file", upload.UploadFile)
 	r.StaticFS("/static", http.Dir(global.AppSetting.UpLoadSavePath))
+
+	r.GET("/auth", api.GetAuth)
 
 	apiV1 := r.Group("/api/v1")
 	{
