@@ -2,25 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4e46e41d-8f29-41e3-90ee-86c1224b710f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/global/tracer.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/middleware/tracer.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/tracer/tracer.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/a.doc" beforeDir="false" afterPath="$PROJECT_DIR$/a.doc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/setting.go" beforeDir="false" afterPath="$PROJECT_DIR$/global/setting.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/middleware/translation.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/middleware/translation.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/request/AuthRequest.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/request/AuthRequest.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/routers/api/auht.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/routers/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/routers/router.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/app/jwt.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/app/jwt.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/middleware/access_log.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/middleware/access_log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/model/model.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/model/model.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/service/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/service/service.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/logger/logger.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/logger/logger.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/setting/section.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/setting/section.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/logs/app.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/app.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,6 +89,10 @@
     <proxy>https://goproxy.cn,https://mirrors.aliyun.com/goproxy,direct</proxy>
   </component>
   <component name="WindowStateProjectService">
+    <state x="278" y="59" width="800" height="684" key="#Build_Tags_&amp;_Vendoring" timestamp="1618786780373">
+      <screen x="0" y="27" width="1366" height="741" />
+    </state>
+    <state x="278" y="59" width="800" height="684" key="#Build_Tags_&amp;_Vendoring/0.27.1366.741@0.27.1366.741" timestamp="1618786780373" />
     <state x="420" y="252" width="515" height="298" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1618728342175">
       <screen x="0" y="27" width="1366" height="741" />
     </state>
@@ -109,22 +101,22 @@
       <screen x="0" y="27" width="1366" height="741" />
     </state>
     <state x="324" y="175" width="708" height="456" key="EditFileWatcherDialog/0.27.1366.741@0.27.1366.741" timestamp="1618728578299" />
-    <state width="1320" height="159" key="GridCell.Tab.0.bottom" timestamp="1618709477288">
+    <state width="1320" height="159" key="GridCell.Tab.0.bottom" timestamp="1618785656242">
       <screen x="0" y="27" width="1366" height="741" />
     </state>
-    <state width="1320" height="159" key="GridCell.Tab.0.bottom/0.27.1366.741@0.27.1366.741" timestamp="1618709477288" />
-    <state width="1320" height="159" key="GridCell.Tab.0.center" timestamp="1618709477287">
+    <state width="1320" height="159" key="GridCell.Tab.0.bottom/0.27.1366.741@0.27.1366.741" timestamp="1618785656242" />
+    <state width="1320" height="159" key="GridCell.Tab.0.center" timestamp="1618785656241">
       <screen x="0" y="27" width="1366" height="741" />
     </state>
-    <state width="1320" height="159" key="GridCell.Tab.0.center/0.27.1366.741@0.27.1366.741" timestamp="1618709477287" />
-    <state width="1320" height="159" key="GridCell.Tab.0.left" timestamp="1618709477286">
+    <state width="1320" height="159" key="GridCell.Tab.0.center/0.27.1366.741@0.27.1366.741" timestamp="1618785656241" />
+    <state width="1320" height="159" key="GridCell.Tab.0.left" timestamp="1618785656241">
       <screen x="0" y="27" width="1366" height="741" />
     </state>
-    <state width="1320" height="159" key="GridCell.Tab.0.left/0.27.1366.741@0.27.1366.741" timestamp="1618709477286" />
-    <state width="1320" height="159" key="GridCell.Tab.0.right" timestamp="1618709477287">
+    <state width="1320" height="159" key="GridCell.Tab.0.left/0.27.1366.741@0.27.1366.741" timestamp="1618785656241" />
+    <state width="1320" height="159" key="GridCell.Tab.0.right" timestamp="1618785656242">
       <screen x="0" y="27" width="1366" height="741" />
     </state>
-    <state width="1320" height="159" key="GridCell.Tab.0.right/0.27.1366.741@0.27.1366.741" timestamp="1618709477287" />
+    <state width="1320" height="159" key="GridCell.Tab.0.right/0.27.1366.741@0.27.1366.741" timestamp="1618785656242" />
     <state width="1320" height="215" key="GridCell.Tab.1.bottom" timestamp="1618644146680">
       <screen x="0" y="27" width="1366" height="741" />
     </state>
