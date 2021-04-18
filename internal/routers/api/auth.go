@@ -14,7 +14,7 @@ import (
 func GetAuth(c *gin.Context) {
 	param := request.AuthRequest{}
 	resp := app.NewResponse(c)
-	valid, errs := app.BindAndValid(c, param)
+	valid, errs := app.BindAndValid(c, &param)
 	if !valid {
 		global.Logger.Errorf("app.BindAndValid err: %v", errs)
 		errResp := errcode.IntvalidParams.WithDetails(errs.Errors()...)

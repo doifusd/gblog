@@ -5,7 +5,9 @@ import (
 	"blog/internal/middleware"
 	"blog/internal/routers/api"
 	v1 "blog/internal/routers/api/v1"
+	"blog/pkg/limiter"
 	"net/http"
+	"time"
 
 	_ "blog/docs"
 
@@ -14,23 +16,44 @@ import (
 	"github.com/swaggo/gin-swagger/swaggerFiles"
 )
 
+var methodLimiters = limiter.NewMethodLimiter().AddBucket(
+	limiter.LimiterBucketRule{
+		Key:          "/auth",
+		FillInterval: time.Second,
+		Capacity:     10,
+		Quantum:      10,
+	},
+)
+
 func NewRoter() *gin.Engine {
 	r := gin.New()
-	r.Use(gin.Logger())
-	r.Use(gin.Recovery())
-	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	if global.ServerSetting.RunMode == "debug" {
+		r.Use(gin.Logger())
+		r.Use(gin.Recovery())
+	} else {
+		r.Use(middleware.AccessLog())
+		r.Use(middleware.Recovery())
+	}
+	r.Use(middleware.RaleLimiter(methodLimiters))
+	//请求超时设置
+	//r.Use(middleware.ContextTimeout(60*time.Second))
+	r.Use(middleware.ContextTimeout(global.AppSetting.RequestTimeout * time.Second))
 	r.Use(middleware.Translations())
 
-	article := v1.NewArticle()
-	tag := v1.NewTag()
+	r.Use(middleware.Tracer())
 
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	upload := NewUpload()
 	r.POST("upload/file", upload.UploadFile)
 	r.StaticFS("/static", http.Dir(global.AppSetting.UpLoadSavePath))
 
+	article := v1.NewArticle()
+	tag := v1.NewTag()
+
 	r.GET("/auth", api.GetAuth)
 
 	apiV1 := r.Group("/api/v1")
+	apiV1.Use(middleware.JWT())
 	{
 		apiV1.POST("/tags", tag.Create)
 		apiV1.DELETE("/tags/:id", tag.Delete)

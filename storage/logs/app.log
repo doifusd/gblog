@@ -32,3 +32,28 @@
 2021/04/16 07:07:48 {"callers":["/home/sky/Documents/go-blog/main.go: 26 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618528068041259208}
 2021/04/16 07:19:47 {"callers":["/home/sky/Documents/go-blog/main.go: 26 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618528787104999546}
 2021/04/16 07:28:07 {"callers":["/home/sky/Documents/go-blog/main.go: 26 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618529287446066354}
+2021/04/17 15:17:07 {"callers":["/home/sky/Documents/go-blog/main.go: 27 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618643827645618253}
+2021/04/17 15:22:20 {"callers":["/home/sky/Documents/go-blog/main.go: 27 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618644140490452538}
+2021/04/17 15:22:22 {"callers":["/home/sky/Documents/go-blog/main.go: 27 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618644142268691691}
+2021/04/17 15:23:19 {"callers":["/home/sky/Documents/go-blog/main.go: 27 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618644199408569395}
+2021/04/17 15:30:57 {"callers":["/home/sky/Documents/go-blog/main.go: 27 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618644657352318439}
+2021/04/17 15:31:31 {"callers":["/home/sky/Documents/go-blog/main.go: 27 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618644691904648203}
+2021/04/17 15:39:23 {"callers":["/home/sky/Documents/go-blog/main.go: 27 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618645163241871848}
+2021/04/17 15:47:34 {"callers":["/home/sky/Documents/go-blog/main.go: 27 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618645654725379601}
+2021/04/17 15:52:26 {"callers":["/home/sky/Documents/go-blog/main.go: 27 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618645946946770559}
+2021/04/17 15:52:28 {"callers":["/home/sky/Documents/go-blog/main.go: 27 main.init.0"],"level":"error","message":"app.BindAndValid err: AppKey为必填字段,AppSecret为必填字段","time":1618645948706441707}
+2021/04/17 15:59:34 {"callers":["/home/sky/Documents/go-blog/main.go: 27 main.init.0"],"level":"error","message":"app.BindAndValid err: AppKey为必填字段,AppSecret为必填字段","time":1618646374829010807}
+2021/04/17 15:59:48 {"callers":["/home/sky/Documents/go-blog/main.go: 27 main.init.0"],"level":"error","message":"app.BindAndValid err: AppKey为必填字段,AppSecret为必填字段","time":1618646388604660268}
+2021/04/17 16:00:20 {"callers":["/home/sky/Documents/go-blog/main.go: 27 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618646420110648778}
+2021/04/17 16:01:06 {"callers":["/home/sky/Documents/go-blog/main.go: 27 main.init.0"],"level":"error","message":"app.BindAndValid err: AppKey为必填字段,AppSecret为必填字段","time":1618646466489222280}
+2021/04/17 16:02:14 {"callers":["/home/sky/Documents/go-blog/main.go: 27 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618646534458363595}
+2021/04/17 16:02:17 {"callers":["/home/sky/Documents/go-blog/main.go: 27 main.init.0"],"level":"error","message":"app.GenerateToken err: key is of invalid type","time":1618646537336832293}
+2021/04/17 16:02:20 {"callers":["/home/sky/Documents/go-blog/main.go: 27 main.init.0"],"level":"error","message":"app.GenerateToken err: key is of invalid type","time":1618646540499552446}
+2021/04/17 16:07:50 {"callers":["/home/sky/Documents/go-blog/main.go: 27 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618646870280111720}
+2021/04/17 16:22:58 {"callers":["/home/sky/Documents/go-blog/main.go: 27 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618647778546456043}
+2021/04/17 16:23:04 {"callers":["/home/sky/Documents/go-blog/main.go: 27 main.init.0"],"level":"error","message":"app.BindAndValid err: AppKey为必填字段,AppSecret为必填字段","time":1618647784046409199}
+2021/04/17 16:23:06 {"callers":["/home/sky/Documents/go-blog/main.go: 27 main.init.0"],"level":"error","message":"app.BindAndValid err: AppKey为必填字段,AppSecret为必填字段","time":1618647786659274223}
+2021/04/18 08:26:39 {"callers":["/home/sky/Documents/go-blog/main.go: 26 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618705599471204633}
+2021/04/18 14:25:38 {"callers":["/home/sky/Documents/go-blog/main.go: 26 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618727138973646661}
+2021/04/18 14:46:56 {"callers":["/home/sky/Documents/go-blog/main.go: 26 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618728416106985444}
+2021/04/18 16:05:06 {"callers":["/home/sky/Documents/go-blog/main.go: 27 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618733106154387080}

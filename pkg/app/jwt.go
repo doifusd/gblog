@@ -18,6 +18,7 @@ func GetJWTSecret() []byte {
 	return []byte(global.JWTSetting.Secret)
 }
 
+//GenerateToken 生成jwt token
 func GenerateToken(appKey, appSecret string) (string, error) {
 	nowTime := time.Now()
 	expireTime := nowTime.Add(global.JWTSetting.Expire)
@@ -30,7 +31,7 @@ func GenerateToken(appKey, appSecret string) (string, error) {
 		},
 	}
 	tokenClaims := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	token, err := tokenClaims.SignedString(GetJWTSecret)
+	token, err := tokenClaims.SignedString(GetJWTSecret())
 	return token, err
 }
 

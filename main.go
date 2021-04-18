@@ -6,12 +6,13 @@ import (
 	"blog/internal/routers"
 	"blog/pkg/logger"
 	"blog/pkg/setting"
+	"blog/pkg/tracer"
+	"fmt"
+	"github.com/gin-gonic/gin"
+	"gopkg.in/natefinch/lumberjack.v2"
 	"log"
 	"net/http"
 	"time"
-
-	"github.com/gin-gonic/gin"
-	"gopkg.in/natefinch/lumberjack.v2"
 )
 
 func init() {
@@ -26,6 +27,10 @@ func init() {
 	err = setupLogger()
 	if err != nil {
 		log.Fatalf("init.setuplogger err: %v", err)
+	}
+	err = setupTracer()
+	if err != nil {
+		log.Fatalf("init.setuptracer err: %v", err)
 	}
 }
 
@@ -64,7 +69,17 @@ func setupSetting() error {
 	if err != nil {
 		return nil
 	}
-	err = setting.ReaddSection("JWT", &global.JWTSetting)
+	err = setting.ReadSection("JWT", &global.JWTSetting)
+	if err != nil {
+		return err
+	}
+
+	err = setting.ReadSection("Email", &global.EmailSetting)
+	if err != nil {
+		return err
+	}
+
+	err = setting.ReadSection("Tracer", &global.TracerSetting)
 	if err != nil {
 		return err
 	}
@@ -92,5 +107,17 @@ func setupLogger() error {
 		MaxAge:    10,
 		LocalTime: true,
 	}, "", log.LstdFlags).WithCaller(2)
+	return nil
+}
+
+func setupTracer() error {
+	jaegerTracer, _, err := tracer.NewJaegerTracer(
+		global.TracerSetting.ServiceName,
+		global.TracerSetting.AgentHostPort,
+	)
+	if err != nil {
+		return err
+	}
+	global.Tracer = jaegerTracer
 	return nil
 }

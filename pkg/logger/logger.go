@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/gin-gonic/gin"
 	"io"
 	"log"
 	"runtime"
@@ -104,6 +105,17 @@ func (l *Logger) WithCallerFrames() *Logger {
 	return ll
 }
 
+func (l *Logger) WithTrace() *Logger {
+	ginCtx, ok := l.ctx.(*gin.Context)
+	if ok {
+		return l.WithFields(Fields{
+			"trace_id": ginCtx.MustGet("x-Trace-ID"),
+			"span_id":  ginCtx.MustGet("X-Span-ID"),
+		})
+	}
+	return l
+}
+
 func (l *Logger) JSONFormat(level Level, message string) map[string]interface{} {
 	data := make(Fields, len(l.fields)+4)
 	data["level"] = level.String()
@@ -139,7 +151,12 @@ func (l *Logger) Output(level Level, message string) {
 	}
 }
 
+//func (l *Logger) Info(v ...interface{}) {
+//	l.Output(LevelInfo, fmt.Sprint(v...))
+//}
+
 func (l *Logger) Info(v ...interface{}) {
+	l = l.WithLevel(LevelInfo).WithContext(ctx).WithTrace()
 	l.Output(LevelInfo, fmt.Sprint(v...))
 }
 
@@ -161,4 +178,12 @@ func (l *Logger) Fatal(v ...interface{}) {
 
 func (l *Logger) Fatalf(format string, v ...interface{}) {
 	l.Output(LevelFatal, fmt.Sprintf(format, v...))
+}
+
+func (l *Logger) Panic(v ...interface{}) {
+	l.Output(LevelPanic, fmt.Sprint(v...))
+}
+
+func (l *Logger) Panicf(format string, v ...interface{}) {
+	l.Output(LevelPanic, fmt.Sprintf(format, v...))
 }

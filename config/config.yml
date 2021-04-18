@@ -3,9 +3,11 @@ Server:
   HttpPort: 8000
   ReadTimeout: 60
   WriteTimeout: 60
+
 App:
   DefaultPagesize: 10
   MaxPageSize: 100
+  RequestTimeout: 60  #请求超时(秒)
   LogSavePath: storage/logs
   LogFileName: app
   LogFileExt: .log
@@ -32,6 +34,21 @@ JWT:
   Secret: doifusd
   Issuer: sky
   Expire: 7200
+Email:
+  Host: smtp.qq.com
+  Port: 456
+  UserName: 812517142@qq.com
+  Password: Sky147258369$
+  IsSSL: true
+  From: 812517142.@qq.com
+  TO: 
+    - doifusd@163.com
+Tracer:
+  ServiceName: blog
+  AgentHostPort: 127.0.0.1:6831
+
+
+
 
 
 

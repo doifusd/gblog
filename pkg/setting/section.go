@@ -14,6 +14,7 @@ type ServerSettings struct {
 type AppSettings struct {
 	DefaultPageSize      int
 	MaxPageSize          int
+	RequestTimeout       time.Duration
 	LogSavePath          string
 	LogFileName          string
 	LogFileExt           string
@@ -43,6 +44,22 @@ type JWTSettings struct {
 	Secret string
 	Issuer string
 	Expire time.Duration
+}
+
+//EmailSettings 配置
+type EmailSettings struct {
+	Host     string
+	Port     int
+	UserName string
+	Password string
+	IsSSL    bool
+	From     string
+	To       []string
+}
+
+type TracerSettings struct {
+	ServiceName   string
+	AgentHostPort string
 }
 
 //ReadSection 读取配置

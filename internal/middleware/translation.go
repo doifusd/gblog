@@ -11,6 +11,7 @@ import (
 	zh_translations "github.com/go-playground/validator/v10/translations/zh"
 )
 
+//Translations 语言转换
 func Translations() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		uni := ut.New(en.New(), zh.New())
