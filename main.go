@@ -7,12 +7,12 @@ import (
 	"blog/pkg/logger"
 	"blog/pkg/setting"
 	"blog/pkg/tracer"
-	"fmt"
-	"github.com/gin-gonic/gin"
-	"gopkg.in/natefinch/lumberjack.v2"
 	"log"
 	"net/http"
 	"time"
+
+	"github.com/gin-gonic/gin"
+	"gopkg.in/natefinch/lumberjack.v2"
 )
 
 func init() {
@@ -103,8 +103,8 @@ func setupLogger() error {
 	fileName := global.AppSetting.LogSavePath + "/" + global.AppSetting.LogFileName + global.AppSetting.LogFileExt
 	global.Logger = logger.NewLogger(&lumberjack.Logger{
 		Filename:  fileName,
-		MaxSize:   600,
-		MaxAge:    10,
+		MaxSize:   600, //最大600M
+		MaxAge:    10,  //最多10天
 		LocalTime: true,
 	}, "", log.LstdFlags).WithCaller(2)
 	return nil

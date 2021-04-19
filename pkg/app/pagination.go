@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+//GetPage 分页获取页数
 func GetPage(c *gin.Context) int {
 	page := convert.StrTo(c.Query("page")).MustInt()
 	if page <= 0 {
@@ -15,6 +16,7 @@ func GetPage(c *gin.Context) int {
 	return page
 }
 
+//GetPageSize 每页大小
 func GetPageSize(c *gin.Context) int {
 	pageSize := convert.StrTo(c.Query("page_size")).MustInt()
 	if pageSize <= 0 {
@@ -26,6 +28,7 @@ func GetPageSize(c *gin.Context) int {
 	return pageSize
 }
 
+//GetPageOffset offset大小
 func GetPageOffset(page, pageSize int) int {
 	res := 0
 	if page > 0 {

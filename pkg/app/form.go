@@ -8,6 +8,7 @@ import (
 	val "github.com/go-playground/validator/v10"
 )
 
+//ValidError 接口校验
 type ValidError struct {
 	Key     string
 	Message string
@@ -31,6 +32,7 @@ func (v ValidErrors) Errors() []string {
 	return errs
 }
 
+//BindAndValid 参数绑定校验
 func BindAndValid(c *gin.Context, v interface{}) (bool, ValidErrors) {
 	var errs ValidErrors
 	err := c.ShouldBind(v)
