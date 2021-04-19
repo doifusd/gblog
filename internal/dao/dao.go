@@ -1,6 +1,7 @@
 package dao
 
-import "gorm.io/gorm"
+// import "gorm.io/gorm"
+import "github.com/jinzhu/gorm"
 
 //Dao 数据库类
 type Dao struct {

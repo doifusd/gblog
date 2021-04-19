@@ -1,6 +1,7 @@
 package model
 
-import "gorm.io/gorm"
+// import "gorm.io/gorm"
+import "github.com/jinzhu/gorm"
 
 type Tag struct {
 	*Model
@@ -46,8 +47,8 @@ func (t Tag) Create(db *gorm.DB) error {
 }
 
 func (t Tag) Update(db *gorm.DB, values interface{}) error {
-	// db = db.Model(&Tag{}).Where("id=? and is_del=?", t.ID, 0)
-	err := db.Model(t).Where("id=? and is_del=?", t.ID).Updates(values).Error
+	//对0值判断
+	err := db.Model(t).Where("id=? and is_del=?", t.ID, 0).Updates(values).Error
 	if err != nil {
 		return err
 	}

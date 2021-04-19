@@ -1,6 +1,7 @@
 package model
 
-import "gorm.io/gorm"
+// import "gorm.io/gorm"
+import "github.com/jinzhu/gorm"
 
 type Auth struct {
 	*Model

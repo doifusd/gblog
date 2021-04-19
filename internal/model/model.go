@@ -1,26 +1,22 @@
 package model
 
 import (
+	"blog/global"
 	"blog/pkg/setting"
 	"context"
 	"fmt"
-	"log"
-	"os"
 	"strings"
 	"time"
 
 	"github.com/opentracing/opentracing-go"
 	"github.com/opentracing/opentracing-go/ext"
 
-	"gorm.io/gorm"
+	// "gorm.io/gorm"
 
 	// "github.com/go-sql-driver/mysql"
 	//otgorm "github.com/eddycjy/opentracing-gorm"
-	//"github.com/jinzhu/gorm"
-	//_ "github.com/jinzhu/gorm/dialects/mysql"
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm/logger"
-	"gorm.io/gorm/schema"
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
 const (
@@ -38,6 +34,35 @@ type Model struct {
 	IsDel      uint8  `json:"is_del"`
 }
 
+func NewDBEngine(databaseSetting *setting.DatabaseSettings) (*gorm.DB, error) {
+	db, err := gorm.Open(databaseSetting.DBType, fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=%s&parseTime=%t&loc=Local",
+		databaseSetting.UserName,
+		databaseSetting.Password,
+		databaseSetting.Host,
+		databaseSetting.Port,
+		databaseSetting.DBName,
+		databaseSetting.Charset,
+		databaseSetting.ParseTime,
+	))
+	if err != nil {
+		return nil, err
+	}
+	if global.ServerSetting.RunMode == "debug" {
+		db.LogMode(true)
+	}
+	db.SingularTable(true)
+
+	db.Callback().Create().Replace("gorm:update_time_stamp", updateTimeStampForCreateCallback)
+	db.Callback().Update().Replace("gorm:update_time_stamp", updateTimeStampForUpdateCallback)
+	db.Callback().Delete().Replace("gorm:delete", deleteCallback)
+
+	db.DB().SetMaxIdleConns(databaseSetting.MaxIdleConns)
+	db.DB().SetMaxOpenConns(databaseSetting.MaxOpenConns)
+
+	return db, nil
+}
+
+/*
 func NewDBEngine(databaseSetting *setting.DatabaseSettings) (*gorm.DB, error) {
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=%s&parseTime=%t&loc=Local", databaseSetting.UserName, databaseSetting.Password, databaseSetting.Host, databaseSetting.Port, databaseSetting.DBName, databaseSetting.Charset, databaseSetting.ParseTime)
 	//db, err := gorm.Open(databaseSetting.DBType, s,
@@ -72,9 +97,6 @@ func NewDBEngine(databaseSetting *setting.DatabaseSettings) (*gorm.DB, error) {
 	// }
 	// db.SingularTable(true)
 
-	// db.Callback().Create().Replace("gorm:update_time_stamp", updateTimeStampForCreateCallback)
-	// db.Callback().Update().Replace("gorm:update_time_stamp", updateTimeStampForUpdateCallback)
-	// db.Callback().Delete().Replace("gorm:delete", deleteCallback)
 
 	//TODO ?
 	sqlDB, err := db.DB()
@@ -88,13 +110,16 @@ func NewDBEngine(databaseSetting *setting.DatabaseSettings) (*gorm.DB, error) {
 
 	AddGormCallbacks(db)
 	return db, nil
-}
+}*/
 
-/* TODO
+//model callback方式实现公共字段的处理
+//新增行为回调
 func updateTimeStampForCreateCallback(scope *gorm.Scope) {
 	if !scope.HasError() {
 		nowTime := time.Now().Unix()
+		//当前是否包含CreatedOn字段
 		if createTimeField, ok := scope.FieldByName("CreatedOn"); ok {
+			//createTimeField是否为空
 			if createTimeField.IsBlank {
 				_ = createTimeField.Set(nowTime)
 			}
@@ -107,25 +132,29 @@ func updateTimeStampForCreateCallback(scope *gorm.Scope) {
 	}
 }
 
+//更新行为的回调
 func updateTimeStampForUpdateCallback(scope *gorm.Scope) {
 	if _, ok := scope.Get("gorm:update_column"); !ok {
 		_ = scope.SetColumn("ModifiedOn", time.Now().Unix())
 	}
 }
 
+//删除行为回调
 func deleteCallback(scope *gorm.Scope) {
 	if !scope.HasError() {
 		var extraOption string
+		//获取删除标识
 		if str, ok := scope.Get("gorm:delete_option"); ok {
 			extraOption = fmt.Sprint(str)
 		}
 		deletedOnField, hasDeletedOnField := scope.FieldByName("DeleteOn")
 		isDelField, hasIsDelField := scope.FieldByName("IsDel")
-		if !scope.Search.Unscoped && hasDeleteOnField && hasIsDelField {
+		if !scope.Search.Unscoped && hasDeletedOnField && hasIsDelField {
+			//软删除
 			now := time.Now().Unix()
 			scope.Raw(fmt.Sprintf(
 				"UPDATE %v SET %v=%v,%v=%v%v%v",
-				scope.QuotedTaleName(),
+				scope.QuotedTableName(),
 				scope.Quote(deletedOnField.DBName),
 				scope.AddToVars(now),
 				scope.Quote(isDelField.DBName),
@@ -134,15 +163,16 @@ func deleteCallback(scope *gorm.Scope) {
 				addExtraSpaceIfExist(extraOption),
 			)).Exec()
 		} else {
+			//硬删除
 			scope.Raw(fmt.Sprintf(
 				"DELETE FROM %v%v%v",
-				scope.QuetedTableName(),
+				scope.QuotedTableName(),
 				addExtraSpaceIfExist(scope.CombinedConditionSql()),
 				addExtraSpaceIfExist(extraOption),
 			)).Exec()
 		}
 	}
-}*/
+}
 
 func addExtraSpaceIfExist(str string) string {
 	if str != "" {
@@ -224,7 +254,6 @@ func registerCallbacks(db *gorm.DB, name string, c *callbacks) {
 	beforeName := fmt.Sprintf("tracing:%v_before", name)
 	afterName := fmt.Sprintf("tracing:%v_after", name)
 	gormCallbackName := fmt.Sprintf("gorm:%v", name)
-	// gorm does some magic, if you pass CallbackProcessor here - nothing works
 	switch name {
 	case "create":
 		db.Callback().Create().Before(gormCallbackName).Register(beforeName, c.beforeCreate)
