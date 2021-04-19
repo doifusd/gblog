@@ -39,7 +39,7 @@ func init() {
 // @description golang blog
 // @termsOfService
 func main() {
-	global.Logger.Infof("%s:go-blog/%s", "eds", "blog")
+	// global.Logger.Infof(context.Context, "%s:go-blog/%s", "eds", "blog")
 	gin.SetMode(global.ServerSetting.RunMode)
 	router := routers.NewRoter()
 	s := &http.Server{

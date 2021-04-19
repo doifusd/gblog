@@ -3,12 +3,20 @@
   <component name="ChangeListManager">
     <list default="true" id="4e46e41d-8f29-41e3-90ee-86c1224b710f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/dao/tag.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/dao/tag.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/middleware/access_log.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/middleware/access_log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/middleware/app_info.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/middleware/app_info.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/middleware/context_timeout.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/middleware/context_timeout.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/middleware/tracer.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/middleware/tracer.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/model/model.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/model/model.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/routers/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/routers/router.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/service/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/service/service.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/app/app.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/app/app.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/app/form.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/app/form.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/app/pagination.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/app/pagination.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/limiter/limiter.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/limiter/limiter.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/limiter/mehod_limiter.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/limiter/mehod_limiter.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/logger/logger.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/logger/logger.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/setting/section.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/setting/section.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/tracer/tracer.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/tracer/tracer.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/logs/app.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/app.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

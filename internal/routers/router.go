@@ -16,6 +16,7 @@ import (
 	"github.com/swaggo/gin-swagger/swaggerFiles"
 )
 
+//限流器
 var methodLimiters = limiter.NewMethodLimiter().AddBucket(
 	limiter.LimiterBucketRule{
 		Key:          "/auth",
@@ -25,6 +26,7 @@ var methodLimiters = limiter.NewMethodLimiter().AddBucket(
 	},
 )
 
+//NewRoter 初始化路由器
 func NewRoter() *gin.Engine {
 	r := gin.New()
 	if global.ServerSetting.RunMode == "debug" {

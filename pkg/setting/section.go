@@ -12,6 +12,8 @@ type ServerSettings struct {
 
 // AppSettings 项目配置
 type AppSettings struct {
+	AppName              string
+	AppVersion           string
 	DefaultPageSize      int
 	MaxPageSize          int
 	RequestTimeout       time.Duration

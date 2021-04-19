@@ -3,12 +3,14 @@ package middleware
 import (
 	"blog/global"
 	"context"
+
 	"github.com/gin-gonic/gin"
 	"github.com/opentracing/opentracing-go"
 	"github.com/opentracing/opentracing-go/ext"
 	"github.com/uber/jaeger-client-go"
 )
 
+//Tracer 链路追踪
 func Tracer() func(c *gin.Context) {
 	return func(c *gin.Context) {
 		var newCtx context.Context

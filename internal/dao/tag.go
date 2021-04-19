@@ -15,6 +15,7 @@ func (d *Dao) GetTagList(name string, state uint8, page, pageSize int) ([]*model
 	pageOffset := app.GetPageOffset(page, pageSize)
 	return tag.List(d.engine, pageOffset, pageSize)
 }
+
 func (d *Dao) CreateTag(name string, state uint8, createdBy string) error {
 	tag := model.Tag{
 		Name:  name,

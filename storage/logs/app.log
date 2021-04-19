@@ -59,3 +59,4 @@
 2021/04/18 16:05:06 {"callers":["/home/sky/Documents/go-blog/main.go: 27 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618733106154387080}
 2021/04/19 20:25:38 {"callers":["/home/sky/Documents/go-blog/main.go: 27 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618835138453551091}
 2021/04/19 20:36:59 {"callers":["/home/sky/Documents/go-blog/main.go: 27 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618835819732099395}
+2021/04/20 06:35:27 {"callers":["/home/sky/Documents/go-blog/main.go: 27 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618871727953030659}

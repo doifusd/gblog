@@ -14,6 +14,7 @@ type AccessLogWriter struct {
 	body *bytes.Buffer
 }
 
+//write　方式实现了双写
 func (w AccessLogWriter) Write(p []byte) (int, error) {
 	if n, err := w.body.Write(p); err != nil {
 		return n, err

@@ -14,7 +14,7 @@ import (
 	// "gorm.io/gorm"
 
 	// "github.com/go-sql-driver/mysql"
-	//otgorm "github.com/eddycjy/opentracing-gorm"
+
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
@@ -59,6 +59,7 @@ func NewDBEngine(databaseSetting *setting.DatabaseSettings) (*gorm.DB, error) {
 	db.DB().SetMaxIdleConns(databaseSetting.MaxIdleConns)
 	db.DB().SetMaxOpenConns(databaseSetting.MaxOpenConns)
 
+	AddGormCallbacks(db)
 	return db, nil
 }
 
@@ -108,7 +109,6 @@ func NewDBEngine(databaseSetting *setting.DatabaseSettings) (*gorm.DB, error) {
 	// SetConnMaxLifetime 设置了连接可复用的最大时间。
 	// sqlDB.SetConnMaxLifetime(time.Hour)
 
-	AddGormCallbacks(db)
 	return db, nil
 }*/
 

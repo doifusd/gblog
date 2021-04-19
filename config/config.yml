@@ -5,6 +5,8 @@ Server:
   WriteTimeout: 60
 
 App:
+  AppName: blog
+  AppVersion: 0.1
   DefaultPagesize: 10
   MaxPageSize: 100
   RequestTimeout: 60  #请求超时(秒)

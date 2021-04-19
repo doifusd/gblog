@@ -1,10 +1,11 @@
 package tracer
 
 import (
-	opentracing "github.com/opentracing/opentracing-go"
-	"github.com/uber/jaeger-client-go/config"
 	"io"
 	"time"
+
+	opentracing "github.com/opentracing/opentracing-go"
+	"github.com/uber/jaeger-client-go/config"
 )
 
 //NewJaegerTracer　初始化追踪
