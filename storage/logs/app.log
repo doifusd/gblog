@@ -60,3 +60,7 @@
 2021/04/19 20:25:38 {"callers":["/home/sky/Documents/go-blog/main.go: 27 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618835138453551091}
 2021/04/19 20:36:59 {"callers":["/home/sky/Documents/go-blog/main.go: 27 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618835819732099395}
 2021/04/20 06:35:27 {"callers":["/home/sky/Documents/go-blog/main.go: 27 main.init.0"],"level":"info","message":"eds:go-blog/blog","time":1618871727953030659}
+2021/04/20 11:49:25 {"callers":["/Users/sky/Documents/blog/main.go: 27 main.init.0"],"level":"error","message":"app.BindAndValid err: AppKey为必填字段,AppSecret为必填字段","time":1618890565650260000}
+2021/04/20 11:49:58 {"callers":["/Users/sky/Documents/blog/main.go: 27 main.init.0"],"level":"error","message":"svc.CheckAuth err: auth info does not exist.","time":1618890598974989000}
+2021/04/20 11:50:04 {"callers":["/Users/sky/Documents/blog/main.go: 27 main.init.0"],"level":"error","message":"svc.CheckAuth err: auth info does not exist.","time":1618890604499244000}
+2021/04/20 12:58:38 {"callers":["/Users/sky/Documents/blog/main.go: 27 main.init.0"],"level":"error","message":"app.BindAndValid errs: Name长度必须至少为3个字符","time":1618894718883143000}
