@@ -21,8 +21,15 @@ go build -o
 -n 打印编译过程,不生成二进制
 -a 强制重新编译所有涉及依赖
 -o 生成二进制文件
+-p 指定编译过程中可以并发运行程序的数量，默认为可用cpu数量
 -work 打印临时文件目录
 -race 启用数据竞争检测
+-import 从文件中读如配置
+-s 省略符号表并调试信息
+-w 省略DWARF符号表
+-buildmode mode 设置构建模式
+-build id 将id记录为go工具链的构建id
+-extld linker 设置外部链接器（默认　gcc）
 
 GOCACHE 编译缓存
 

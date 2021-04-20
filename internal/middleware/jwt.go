@@ -3,7 +3,6 @@ package middleware
 import (
 	"blog/pkg/app"
 	"blog/pkg/errcode"
-
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 )
@@ -35,7 +34,7 @@ func JWT() gin.HandlerFunc {
 		if ecode != errcode.Success {
 			resp := app.NewResponse(c)
 			resp.ToErrorResponse(ecode)
-			//TODO ???
+			//尽快结束当前请求
 			c.Abort()
 			return
 		}

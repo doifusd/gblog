@@ -6,6 +6,8 @@
 *.dylib
 storage/
 config/
+*.log
+*.yml
 
 # Test binary, built with `go test -c`
 *.test

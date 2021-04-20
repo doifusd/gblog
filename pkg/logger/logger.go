@@ -77,11 +77,10 @@ func (l *Logger) WithContext(ctx context.Context) *Logger {
 	return ll
 }
 
-//TODO
+//TODO ???
 func (l *Logger) WithLevel(lel Level) *Logger {
 	ll := l.clone()
 	//ll.ctx = ctx
-
 	return ll
 }
 

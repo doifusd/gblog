@@ -82,10 +82,21 @@ func (t Tag) Create(c *gin.Context) {
 	}
 	svc := service.New(c.Request.Context())
 	//检测数据是否存在
-
-	errs := svc.CreateTag(&param)
+	checkTag, errs := svc.GetTag(&param)
 	if errs != nil {
 		global.Logger.Errorf("svc.CreateTag errs: %v", errs)
+		resp.ToErrorResponse(errcode.ErrorCreateTagFail)
+		return
+	}
+	fmt.Println(checkTag)
+	if checkTag > 0 {
+		resp.ToErrorResponse(errcode.ErrorTagExist)
+		return
+	}
+
+	errss := svc.CreateTag(&param)
+	if errss != nil {
+		global.Logger.Errorf("svc.CreateTag errs: %v", errss)
 		resp.ToErrorResponse(errcode.ErrorCreateTagFail)
 		return
 	}

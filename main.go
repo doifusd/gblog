@@ -125,7 +125,7 @@ func setupSetting() error {
 	if err != nil {
 		return err
 	}
-	global.JWTSetting.Expire = 1 * time.Second
+	global.JWTSetting.Expire = 3600 * time.Second
 	global.ServerSetting.ReadTimeout *= time.Second
 	global.ServerSetting.WriteTimeout *= time.Second
 

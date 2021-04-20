@@ -64,3 +64,17 @@
 2021/04/20 11:49:58 {"callers":["/Users/sky/Documents/blog/main.go: 27 main.init.0"],"level":"error","message":"svc.CheckAuth err: auth info does not exist.","time":1618890598974989000}
 2021/04/20 11:50:04 {"callers":["/Users/sky/Documents/blog/main.go: 27 main.init.0"],"level":"error","message":"svc.CheckAuth err: auth info does not exist.","time":1618890604499244000}
 2021/04/20 12:58:38 {"callers":["/Users/sky/Documents/blog/main.go: 27 main.init.0"],"level":"error","message":"app.BindAndValid errs: Name长度必须至少为3个字符","time":1618894718883143000}
+2021/04/21 07:12:31 {"callers":["/home/sky/Documents/go-blog/main.go: 45 main.init.0"],"level":"error","message":"svc.CheckAuth err: auth info does not exist.","time":1618960351277712783}
+2021/04/21 07:12:34 {"callers":["/home/sky/Documents/go-blog/main.go: 45 main.init.0"],"level":"error","message":"svc.CheckAuth err: auth info does not exist.","time":1618960354264450216}
+2021/04/21 07:12:43 {"callers":["/home/sky/Documents/go-blog/main.go: 45 main.init.0"],"level":"error","message":"svc.CheckAuth err: auth info does not exist.","time":1618960363619398286}
+2021/04/21 07:16:36 {"callers":["/home/sky/Documents/go-blog/main.go: 45 main.init.0"],"level":"error","message":"svc.CreateTag errs: unsupported destination, should be slice or struct","time":1618960596727199159}
+2021/04/21 07:18:18 {"callers":["/home/sky/Documents/go-blog/main.go: 45 main.init.0"],"level":"error","message":"svc.CreateTag errs: unsupported destination, should be slice or struct","time":1618960698668767560}
+2021/04/21 07:18:27 {"callers":["/home/sky/Documents/go-blog/main.go: 45 main.init.0"],"level":"error","message":"svc.CreateTag errs: unsupported destination, should be slice or struct","time":1618960707591499625}
+2021/04/21 07:18:30 {"callers":["/home/sky/Documents/go-blog/main.go: 45 main.init.0"],"level":"error","message":"svc.CreateTag errs: unsupported destination, should be slice or struct","time":1618960710408733652}
+2021/04/21 07:20:07 {"callers":["/home/sky/Documents/go-blog/main.go: 45 main.init.0"],"level":"error","message":"svc.CreateTag errs: unsupported destination, should be slice or struct","time":1618960807475365082}
+2021/04/21 07:25:26 {"callers":["/home/sky/Documents/go-blog/main.go: 45 main.init.0"],"level":"error","message":"svc.CreateTag errs: unsupported destination, should be slice or struct","time":1618961126630774549}
+2021/04/21 07:28:56 {"callers":["/home/sky/Documents/go-blog/main.go: 45 main.init.0"],"level":"error","message":"svc.CreateTag errs: unsupported destination, should be slice or struct","time":1618961336985797565}
+2021/04/21 07:30:49 {"callers":["/home/sky/Documents/go-blog/main.go: 45 main.init.0"],"level":"error","message":"svc.CreateTag errs: Error 1110: Column 'created_by' specified twice","time":1618961449974102477}
+2021/04/21 07:42:38 {"callers":["/home/sky/Documents/go-blog/main.go: 45 main.init.0"],"level":"error","message":"svc.CreateTag errs: record not found","time":1618962158756401668}
+2021/04/21 07:43:23 {"callers":["/home/sky/Documents/go-blog/main.go: 45 main.init.0"],"level":"error","message":"svc.CreateTag errs: record not found","time":1618962203160678901}
+2021/04/21 07:43:34 {"callers":["/home/sky/Documents/go-blog/main.go: 45 main.init.0"],"level":"error","message":"svc.CreateTag errs: record not found","time":1618962214038436372}
