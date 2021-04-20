@@ -7,15 +7,33 @@ import (
 	"blog/pkg/logger"
 	"blog/pkg/setting"
 	"blog/pkg/tracer"
+	"context"
+	"flag"
+	"fmt"
 	"log"
 	"net/http"
+	"os"
+	"os/signal"
+	"strings"
+	"syscall"
 	"time"
 
 	"github.com/gin-gonic/gin"
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 
+var (
+	port         string
+	runMode      string
+	config       string
+	isVersion    bool
+	buildTime    string
+	buildVersion string
+	gitCommitID  string
+)
+
 func init() {
+	setupFlag()
 	err := setupSetting()
 	if err != nil {
 		log.Fatalf("init.setupsetting err: %v", err)
@@ -39,7 +57,12 @@ func init() {
 // @description golang blog
 // @termsOfService
 func main() {
-	// global.Logger.Infof(context.Context, "%s:go-blog/%s", "eds", "blog")
+	if isVersion {
+		fmt.Printf("build_time: %s\n", buildTime)
+		fmt.Printf("build_version: %s\n", buildVersion)
+		fmt.Printf("git_commit_id: %s\n", gitCommitID)
+	}
+
 	gin.SetMode(global.ServerSetting.RunMode)
 	router := routers.NewRoter()
 	s := &http.Server{
@@ -49,11 +72,31 @@ func main() {
 		WriteTimeout:   global.ServerSetting.WriteTimeout,
 		MaxHeaderBytes: 1 << 20,
 	}
-	s.ListenAndServe()
+	//信号
+	go func() {
+		err := s.ListenAndServe()
+		if err != nil && err != http.ErrServerClosed {
+			log.Fatalf("s.ListenAdnServe err: %v", err)
+		}
+	}()
+	//等待信号中断
+	quit := make(chan os.Signal)
+	//接收信号(sigint,sigterm)
+	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+	<-quit
+	log.Println("shuting down server...")
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	if err := s.Shutdown(ctx); err != nil {
+		log.Fatal("server forced to shutdown:", err)
+	}
+	log.Println("server exiting")
+	// s.ListenAndServe()
 }
 
 func setupSetting() error {
-	setting, err := setting.NewSetting()
+	// setting, err := setting.NewSetting()
+	setting, err := setting.NewSetting(strings.Split(config, ",")...)
 	if err != nil {
 		return nil
 	}
@@ -61,6 +104,7 @@ func setupSetting() error {
 	if err != nil {
 		return nil
 	}
+	fmt.Println(global.ServerSetting)
 	err = setting.ReadSection("App", &global.AppSetting)
 	if err != nil {
 		return nil
@@ -73,20 +117,24 @@ func setupSetting() error {
 	if err != nil {
 		return err
 	}
-
 	err = setting.ReadSection("Email", &global.EmailSetting)
 	if err != nil {
 		return err
 	}
-
 	err = setting.ReadSection("Tracer", &global.TracerSetting)
 	if err != nil {
 		return err
 	}
-
-	global.JWTSetting.Expire *= time.Second
+	global.JWTSetting.Expire = 1 * time.Second
 	global.ServerSetting.ReadTimeout *= time.Second
 	global.ServerSetting.WriteTimeout *= time.Second
+
+	if port != "" {
+		global.ServerSetting.HttpPort = port
+	}
+	if runMode != "" {
+		global.ServerSetting.RunMode = runMode
+	}
 	return nil
 }
 
@@ -119,5 +167,14 @@ func setupTracer() error {
 		return err
 	}
 	global.Tracer = jaegerTracer
+	return nil
+}
+
+func setupFlag() error {
+	flag.StringVar(&port, "port", "", "启动端口")
+	flag.StringVar(&runMode, "mode", "", "启动模式")
+	flag.StringVar(&config, "config", "config/", "指定使用的配置文件路径")
+	flag.BoolVar(&isVersion, "version", false, "编译版本信息")
+	flag.Parse()
 	return nil
 }
