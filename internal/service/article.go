@@ -1,28 +1,26 @@
 package service
 
-type CountArticleRequest struct {
-	Name  string `form:"name" binding:"max=100"`
-	State uint8  `form:"state,default=1" binding:"oneof=0 1"`
+/*
+func (svc *Service) CountArtilce(param *request.CountArticleRequest) (int64, error) {
+	return svc.dao.CountArticle(param.Title, param.State)
 }
 
-type ArticleListRequest struct {
-	Name  string `form:"name" binding:"max=100"`
-	State uint8  `form:"state,default=1" binding:"oneof=0 1"`
+func (svc *Service) GetArticleList(param *request.ArticleListRequest, pager *app.Pager) ([]*model.Article, error) {
+	return svc.dao.GetArticleList(param.Title, param.State, pager.Page, pager.PageSize)
 }
 
-type CrateArticleResquest struct {
-	Name      string `form:"name" binding:"required,min=3,max=100"`
-	CreatedBy string `form:"created_by" binding:"required,min=3,max=100"`
-	State     uint8  `form:"state,default=1" binding:"oneof=0 1"`
+func (svc *Service) GetArticle(param *request.CrateArticleResquest) (int64, error) {
+	return svc.dao.GetArticle(param.Title, param.CreatedBy)
 }
 
-type UpdateArticleRequest struct {
-	ID         uint32 `form:"id" binding:"required,gte=1"`
-	Name       string `form:"name" binding:"min=3,max=100"`
-	State      uint8  `form:"state,default=1" binding:"required,oneof=0 1"`
-	ModifiedBy string `form:"modified_by" binding:"required,min=3,max=100"`
+func (svc *Service) CreateArticle(param *request.CrateArticleResquest) error {
+	return svc.dao.CreateArticle(param.Title, param.State, param.CreatedBy)
 }
 
-type DeleteArticleRequest struct {
-	ID uint32 `form:"id" binding:"required,gte=1"`
+func (svc *Service) UpdateArticle(param *request.UpdateArticleRequest) error {
+	return svc.dao.UpdateArticle(param.ID, param.Title, param.State, param.ModifiedBy)
 }
+
+func (svc *Service) DeleteArticle(param *request.DeleteArticleRequest) error {
+	return svc.dao.DeleteArticle(param.ID)
+}*/

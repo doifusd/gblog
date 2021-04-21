@@ -3,7 +3,6 @@ package routers
 import (
 	"blog/global"
 	"blog/internal/middleware"
-	"blog/internal/routers/api"
 	v1 "blog/internal/routers/api/v1"
 	"blog/pkg/limiter"
 	"net/http"
@@ -49,10 +48,10 @@ func NewRoter() *gin.Engine {
 	r.POST("upload/file", upload.UploadFile)
 	r.StaticFS("/static", http.Dir(global.AppSetting.UpLoadSavePath))
 
-	article := v1.NewArticle()
+	// article := v1.NewArticle()
 	tag := v1.NewTag()
 
-	r.GET("/auth", api.GetAuth)
+	// r.GET("/auth", api.GetAuth)
 
 	apiV1 := r.Group("/api/v1")
 	apiV1.Use(middleware.JWT())
@@ -63,12 +62,12 @@ func NewRoter() *gin.Engine {
 		apiV1.PATCH("/tags/:id/state", tag.Update)
 		apiV1.GET("/tags", tag.List)
 
-		apiV1.POST("/articles", article.Create)
-		apiV1.DELETE("/articles/:id", article.Delete)
-		apiV1.PUT("/articles/:id", article.Update)
-		apiV1.PATCH("/articles/:id/state", article.Update)
-		apiV1.GET("/articles/:id", article.Get)
-		apiV1.GET("/articles", article.List)
+		//	apiV1.POST("/articles", article.Create)
+		//	apiV1.DELETE("/articles/:id", article.Delete)
+		//	apiV1.PUT("/articles/:id", article.Update)
+		//	apiV1.PATCH("/articles/:id/state", article.Update)
+		//	apiV1.GET("/articles/:id", article.Get)
+		//	apiV1.GET("/articles", article.List)
 
 	}
 	return r

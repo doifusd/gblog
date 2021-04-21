@@ -26,9 +26,14 @@ func NewResponse(ctx *gin.Context) *Response {
 
 //ToResponse 响应方法
 func (r *Response) ToResponse(data interface{}) {
+	// resp := gin.H{"code": err.Code(), "msg": err.Msg()}
+	// details := err.Details()
 	if data == nil {
 		data = gin.H{}
 	}
+	// if len(details) > 0 {
+	// resp["details"] = details
+	// }
 	r.Ctx.JSON(http.StatusOK, data)
 }
 

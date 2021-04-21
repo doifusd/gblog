@@ -10,7 +10,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-//GetAuth 生成token
+/*
+* GetAuth 生成token
 func GetAuth(c *gin.Context) {
 	param := request.AuthRequest{}
 	resp := app.NewResponse(c)
@@ -22,7 +23,7 @@ func GetAuth(c *gin.Context) {
 		return
 	}
 	svc := service.New(c.Request.Context())
-	err := svc.CheckAuth(&param)
+	chek,err := svc.CheckUser(&param)
 	if err != nil {
 		global.Logger.Errorf("svc.CheckAuth err: %v", err)
 		resp.ToErrorResponse(errcode.UnauthorizedAuthNotExist)
@@ -37,4 +38,24 @@ func GetAuth(c *gin.Context) {
 	resp.ToResponse(gin.H{
 		"token": token,
 	})
+}*/
+
+func register(c *gin.Context) {
+	param := request.RegisterRequest{}
+	resp := app.NewResponse(c)
+	valid, errs := app.BindAndValid(c, &param)
+	if !valid {
+		global.Logger.Errorf("app.BindAndValid err: %v", errs)
+		errResp := errcode.IntvalidParams.WithDetails(errs.Errors()...)
+		resp.ToErrorResponse(errResp)
+		return
+	}
+	svc := service.New(c.Request.Context())
+	err := svc.CreateUser(&param)
+	if err != nil {
+		global.Logger.Errorf("svc.CheckAuth err: %v", err)
+		resp.ToErrorResponse(errcode.UnauthorizedAuthNotExist)
+		return
+	}
+	resp.ToErrorResponse(errcode.SuccessCreateUser)
 }

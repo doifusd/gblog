@@ -82,25 +82,19 @@ func (t Tag) Create(c *gin.Context) {
 	}
 	svc := service.New(c.Request.Context())
 	//检测数据是否存在
-	checkTag, errs := svc.GetTag(&param)
-	if errs != nil {
-		global.Logger.Errorf("svc.CreateTag errs: %v", errs)
-		resp.ToErrorResponse(errcode.ErrorCreateTagFail)
-		return
-	}
-	fmt.Println(checkTag)
+	checkTag, _ := svc.GetTag(&param)
 	if checkTag > 0 {
 		resp.ToErrorResponse(errcode.ErrorTagExist)
 		return
 	}
-
 	errss := svc.CreateTag(&param)
 	if errss != nil {
 		global.Logger.Errorf("svc.CreateTag errs: %v", errss)
 		resp.ToErrorResponse(errcode.ErrorCreateTagFail)
 		return
 	}
-	resp.ToResponse(gin.H{})
+	// resp.ToResponse(gin.H{"code": "100010001", "msg": "添加标签成功"})
+	resp.ToErrorResponse(errcode.SuccessCreateTag)
 	return
 }
 
@@ -134,7 +128,8 @@ func (t Tag) Update(c *gin.Context) {
 		resp.ToErrorResponse(errcode.ErrorUpdateTagFail)
 		return
 	}
-	resp.ToResponse(gin.H{})
+	// resp.ToResponse(gin.H{})
+	resp.ToErrorResponse(errcode.SuccessUpdateTag)
 	return
 }
 
@@ -164,7 +159,8 @@ func (t Tag) Delete(c *gin.Context) {
 		resp.ToErrorResponse(errcode.ErrorDeleateTagFail)
 		return
 	}
-	resp.ToResponse(gin.H{})
+	// resp.ToResponse(gin.H{})
+	resp.ToErrorResponse(errcode.SuccessDeleteTag)
 	return
 }
 

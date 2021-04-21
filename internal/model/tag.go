@@ -60,11 +60,11 @@ func (t Tag) Delete(db *gorm.DB) error {
 	return db.Where("id=? and is_del=?", t.Model.ID, 0).Delete(&t).Error
 }
 
-func (t Tag) GetOne(db *gorm.DB) (uint32, error) {
+func (t Tag) GetOne(db *gorm.DB) (int64, error) {
 	var data *Tag = &Tag{}
-	var err error
-	if err = db.Where("name=?", t.Name).Where("created_by=?", t.CreatedBy).Find(&data).Error; err != nil {
-		return 0, err
+	res := db.Where("name=?", t.Name).Where("created_by=?", t.CreatedBy).Find(&data)
+	if res.Error != nil {
+		return 0, res.Error
 	}
-	return data.Model.ID, nil
+	return res.RowsAffected, nil
 }

@@ -47,3 +47,10 @@ go build -ldflags "-s -w" -o blog
 编译生成版本号和提交信息
 go build -ldflags "-X main.buildTime=`date +%Y-%m-%d,%H:%M:%S` -X main.buildVersion=1.0.0 -X main.gitCommitID=`git rev-parse HEAD`"
 ./blog -version
+
+fsnotify 使用
+air使用
+go get -u github.com/cosmtrek/air
+air -c .air.conf
+
+wechat_user 信息

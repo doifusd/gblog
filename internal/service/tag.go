@@ -14,7 +14,7 @@ func (svc *Service) GetTagList(param *request.TagListRequest, pager *app.Pager) 
 	return svc.dao.GetTagList(param.Name, param.State, pager.Page, pager.PageSize)
 }
 
-func (svc *Service) GetTag(param *request.CrateTagResquest) (uint32, error) {
+func (svc *Service) GetTag(param *request.CrateTagResquest) (int64, error) {
 	return svc.dao.GetTag(param.Name, param.CreatedBy)
 }
 

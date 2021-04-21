@@ -44,7 +44,7 @@ func (d *Dao) DeleteTag(id uint32) error {
 	return tag.Delete(d.engine)
 }
 
-func (d *Dao) GetTag(name, createdBy string) (uint32, error) {
+func (d *Dao) GetTag(name, createdBy string) (int64, error) {
 	tag := model.Tag{Name: name, Model: &model.Model{CreatedBy: createdBy}}
 	return tag.GetOne(d.engine)
 }
