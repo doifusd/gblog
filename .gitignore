@@ -3,11 +3,13 @@
 *.exe~
 *.dll
 *.so
+*.sql
 *.dylib
 storage/
 config/
 *.log
 *.yml
+.idea/
 
 # Test binary, built with `go test -c`
 *.test
