@@ -6,6 +6,8 @@ import (
 	"blog/internal/service"
 	"blog/pkg/app"
 	"blog/pkg/errcode"
+	"blog/pkg/util"
+	"fmt"
 
 	"github.com/gin-gonic/gin"
 )
@@ -40,7 +42,7 @@ func GetAuth(c *gin.Context) {
 	})
 }*/
 
-func register(c *gin.Context) {
+func SignUp(c *gin.Context) {
 	param := request.RegisterRequest{}
 	resp := app.NewResponse(c)
 	valid, errs := app.BindAndValid(c, &param)
@@ -51,11 +53,30 @@ func register(c *gin.Context) {
 		return
 	}
 	svc := service.New(c.Request.Context())
-	err := svc.CreateUser(&param)
-	if err != nil {
-		global.Logger.Errorf("svc.CheckAuth err: %v", err)
-		resp.ToErrorResponse(errcode.UnauthorizedAuthNotExist)
+	//检查mobile是否存在
+	err := svc.CreateUserCheck(param.Name)
+	if err == nil {
+		resp.ToErrorResponse(errcode.ErrorUserExist)
 		return
 	}
+	lastId, err := svc.UserLastId()
+	lastIds := "1"
+	if err != nil {
+		lastIds = fmt.Sprintf("%d", lastId+1)
+	}
+	// var build strings.Builder
+	// build.WriteString(global.AppSetting.AppName)
+	// build.WriteString(lastIds)
+	// key := build.String()
+	// tmps := util.AESCBCEncrypt([]byte(param.Password), []byte(key))
+	// encodedStr := hex.EncodeToString(tmps)
+	// param.Password = string(encodedStr)
+	param.Password = util.UserPassword(param.Password, lastIds)
+	err = svc.CreateUser(&param)
+	if err != nil {
+		resp.ToErrorResponse(errcode.ErrorCreateUserFail)
+		return
+	}
+	// resp.ToResponse(gin.H{"code": "100030001", "msg": "注册成功"})
 	resp.ToErrorResponse(errcode.SuccessCreateUser)
 }

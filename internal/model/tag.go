@@ -6,8 +6,9 @@ import (
 
 type Tag struct {
 	*Model
-	Name  string `json:"name"`
-	State uint8  `json:"state"`
+	Name       string `json:"name"`
+	CreatedBy  string `gorm:"column:created_by;default:null" json:"created_by"`
+	ModifiedBy string `gorm:"column:modified_by;default:null" json:"modified_by"`
 }
 
 func (t Tag) TableName() string {
@@ -19,8 +20,7 @@ func (t Tag) Count(db *gorm.DB) (int64, error) {
 	if t.Name != "" {
 		db = db.Where("name=?", t.Name)
 	}
-	db = db.Where("state=?", t.State)
-	err := db.Model(&t).Where("is_del=?", 0).Count(&count).Error
+	err := db.Model(&t).Where("state=?", t.State).Count(&count).Error
 	if err != nil {
 		return 0, err
 	}
@@ -36,8 +36,7 @@ func (t Tag) List(db *gorm.DB, pageOffset, pageSize int) ([]*Tag, error) {
 	if t.Name != "" {
 		db = db.Where("name=?", t.Name)
 	}
-	db = db.Where("state=?", t.State)
-	if err = db.Where("is_del=?", 0).Find(&tags).Error; err != nil {
+	if err = db.Select("id,created_on,modified_on,deleted_on,state,name,created_by,modified_by").Where("state=?", t.State).Find(&tags).Error; err != nil {
 		return nil, err
 	}
 	return tags, nil

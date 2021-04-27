@@ -104,11 +104,11 @@ func setupSetting() error {
 	if err != nil {
 		return nil
 	}
-	fmt.Println(global.ServerSetting)
 	err = setting.ReadSection("App", &global.AppSetting)
 	if err != nil {
 		return nil
 	}
+	// fmt.Println(global.AppSetting)
 	err = setting.ReadSection("Database", &global.DatabaseSetting)
 	if err != nil {
 		return nil

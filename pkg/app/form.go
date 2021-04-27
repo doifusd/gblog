@@ -35,7 +35,8 @@ func (v ValidErrors) Errors() []string {
 //BindAndValid 参数绑定校验
 func BindAndValid(c *gin.Context, v interface{}) (bool, ValidErrors) {
 	var errs ValidErrors
-	err := c.ShouldBind(v)
+	// err := c.ShouldBind(v)
+	err := c.BindJSON(v)
 	if err != nil {
 		v := c.Value("trans")
 		trans, _ := v.(ut.Translator)

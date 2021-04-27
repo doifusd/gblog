@@ -15,13 +15,15 @@ import (
 )
 
 type Model struct {
-	ID         uint32 `gorm:"primary_key" json:"id"`
-	CreatedBy  string `json:"created_by"`
-	ModifiedBy string `json:"modified_by"`
-	CreatedOn  uint32 `json:"created_on"`
-	ModifiedOn uint32 `json:"modified_on"`
-	DeletedOn  uint32 `json:"deleted_on"`
-	IsDel      uint8  `json:"is_del"`
+	ID         uint32 `gorm:"primary_key;auto_increment"`
+	CreatedOn  string `gorm:"column:created_on;default:timestamp" json:"created_on"`
+	ModifiedOn string `gorm:"column:modified_on;default:0" json:"modified_on"`
+	DeletedOn  string `gorm:"column:deleted_on;default:0" json:"deleted_on"`
+	State      uint8  `gorm:"column:state;default:1" json:"state"`
+}
+
+var nowTime = func() string {
+	return time.Now().Format("2006-01-02 15:04:05")
 }
 
 func NewDBEngine(databaseSetting *setting.DatabaseSettings) (*gorm.DB, error) {
@@ -89,7 +91,7 @@ func NewDBEngine(databaseSetting *setting.DatabaseSettings) (*gorm.DB, error) {
 //新增行为回调
 func updateTimeStampForCreateCallback(scope *gorm.Scope) {
 	if !scope.HasError() {
-		nowTime := time.Now().Unix()
+		// nowTime := time.Now().Unix()
 		//当前是否包含CreatedOn字段
 		if createTimeField, ok := scope.FieldByName("CreatedOn"); ok {
 			//createTimeField是否为空
@@ -108,7 +110,7 @@ func updateTimeStampForCreateCallback(scope *gorm.Scope) {
 //更新行为的回调
 func updateTimeStampForUpdateCallback(scope *gorm.Scope) {
 	if _, ok := scope.Get("gorm:update_column"); !ok {
-		_ = scope.SetColumn("ModifiedOn", time.Now().Unix())
+		_ = scope.SetColumn("ModifiedOn", nowTime)
 	}
 }
 
@@ -120,16 +122,16 @@ func deleteCallback(scope *gorm.Scope) {
 		if str, ok := scope.Get("gorm:delete_option"); ok {
 			extraOption = fmt.Sprint(str)
 		}
-		deletedOnField, hasDeletedOnField := scope.FieldByName("DeleteOn")
+		deletedOnField, hasDeletedOnField := scope.FieldByName("DeletedOn")
 		isDelField, hasIsDelField := scope.FieldByName("IsDel")
 		if !scope.Search.Unscoped && hasDeletedOnField && hasIsDelField {
 			//软删除
-			now := time.Now().Unix()
+			// now := time.Now().Unix()
 			scope.Raw(fmt.Sprintf(
 				"UPDATE %v SET %v=%v,%v=%v%v%v",
 				scope.QuotedTableName(),
 				scope.Quote(deletedOnField.DBName),
-				scope.AddToVars(now),
+				scope.AddToVars(nowTime),
 				scope.Quote(isDelField.DBName),
 				scope.AddToVars(1),
 				addExtraSpaceIfExist(scope.CombinedConditionSql()),
@@ -145,6 +147,29 @@ func deleteCallback(scope *gorm.Scope) {
 			)).Exec()
 		}
 	}
+}
+
+func (v Model) BeforeCreate(scope *gorm.Scope) error {
+	scope.SetColumn("created_on", nowTime)
+	scope.SetColumn("modified_on", nowTime)
+	return nil
+}
+
+func (v Model) BeforeUpdate(scope *gorm.Scope) error {
+	scope.SetColumn("modified_on", nowTime)
+	return nil
+}
+
+func (v Model) RowQueryAfter(scope *gorm.Scope) error {
+	scope.SetColumn("modified_on", nowTime)
+	return nil
+}
+
+func (v Model) QueryAfter(scope *gorm.Scope) error {
+	/*err := db.Callback().Query().After("gorm:created_on").Register("uuid", func (db *gorm.DB) {
+	    db.Statement.SetColumn("id", NewUlid())
+	})*/
+	return nil
 }
 
 func addExtraSpaceIfExist(str string) string {

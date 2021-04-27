@@ -18,7 +18,15 @@ var (
 	SuccessUpdateArticle = NewError(100020002, "编辑文章成功")
 	SuccessDeleteArticle = NewError(100020003, "删除文章成功")
 
-	SuccessCreateUser = NewError(100030001, "用户注册成功")
+	SuccessCreateUser   = NewError(100030001, "用户注册成功")
+	ErrorUserExist      = NewError(100030004, "用户已经存在")
+	ErrorCreateUserFail = NewError(100030005, "用户注册失败")
+
+	ErrorUserNotExist     = NewError(100030006, "用户不存在")
+	ErrorUserPasswordFail = NewError(100030007, "用户密码错误")
+
+	SuccessLoginUser = NewError(100030008, "用户登录成功")
+
 	SuccessUpdateUser = NewError(100030002, "用户编辑成功")
 	SuccessDeleteUser = NewError(100030003, "用户删除成功")
 )

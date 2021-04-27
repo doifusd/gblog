@@ -3,6 +3,7 @@ package routers
 import (
 	"blog/global"
 	"blog/internal/middleware"
+	"blog/internal/routers/api"
 	v1 "blog/internal/routers/api/v1"
 	"blog/pkg/limiter"
 	"net/http"
@@ -47,6 +48,9 @@ func NewRoter() *gin.Engine {
 	upload := NewUpload()
 	r.POST("upload/file", upload.UploadFile)
 	r.StaticFS("/static", http.Dir(global.AppSetting.UpLoadSavePath))
+
+	r.POST("/sign_up", api.SignUp)
+	r.POST("/sign_in", api.Login)
 
 	// article := v1.NewArticle()
 	tag := v1.NewTag()

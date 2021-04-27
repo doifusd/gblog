@@ -9,6 +9,8 @@ type Article struct {
 	Content       string `json:"content"`
 	CoverImageUrl string `json:"cover_image_url"`
 	State         uint8  `json:"state"`
+	CreatedBy     string `gorm:"column:created_at;default:null" json:"created_by"`
+	ModifiedBy    string `gorm:"column:modified_at;default:null" json:"modified_by"`
 }
 
 func (a Article) TableName() string {

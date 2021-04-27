@@ -7,7 +7,16 @@ type AuthRequest struct {
 }
 
 type RegisterRequest struct {
-	Name   string `form:"name" binding:"required"`
-	Mobile string `form:"mobile" binding:"required"`
-	Passwd string `form:"password" binding:"required"`
+	Name     string `json:"name" binding:"required"`
+	Mobile   string `json:"mobile" binding:"required"`
+	Password string `json:"password" binding:"required"`
+}
+
+type CheckUserRequest struct {
+	Name string `form:"name" binding:"required"`
+}
+
+type LoginRequest struct {
+	Mobile   string `json:"mobile" binding:"required,min=11,max=11"`
+	Password string `json:"password" binding:"required"`
 }

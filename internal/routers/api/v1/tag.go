@@ -64,7 +64,6 @@ func (t Tag) List(c *gin.Context) {
 // @Summary 新增标签
 // @Produce json
 // @Param name body string true "标签名称" minlength(3) maxlength(100)
-// @Param state body int false "状态" Enums(0,1) default(1)
 // @Param created_by body string true "创建者" minlength(3) maxlength(100)
 // @Success 200 {object} model.Tag "成功"
 // @Failure 400 {object} errcode.Error "请求错误"
@@ -121,8 +120,9 @@ func (t Tag) Update(c *gin.Context) {
 		resp.ToErrorResponse(errRsp)
 		return
 	}
+	modifiedBy := ""
 	svc := service.New(c.Request.Context())
-	errs := svc.UpdateTag(&param)
+	errs := svc.UpdateTag(&param, modifiedBy)
 	if errs != nil {
 		global.Logger.Errorf("svc.UpdateTag errs: %v", errs)
 		resp.ToErrorResponse(errcode.ErrorUpdateTagFail)

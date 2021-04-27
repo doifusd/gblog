@@ -54,3 +54,5 @@ go get -u github.com/cosmtrek/air
 air -c .air.conf
 
 wechat_user 信息
+成功时候的response
+response_code
