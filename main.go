@@ -4,6 +4,7 @@ import (
 	"blog/global"
 	"blog/internal/model"
 	"blog/internal/routers"
+	"blog/pkg/cache"
 	"blog/pkg/logger"
 	"blog/pkg/setting"
 	"blog/pkg/tracer"
@@ -108,8 +109,11 @@ func setupSetting() error {
 	if err != nil {
 		return nil
 	}
-	// fmt.Println(global.AppSetting)
 	err = setting.ReadSection("Database", &global.DatabaseSetting)
+	if err != nil {
+		return nil
+	}
+	err = setting.ReadSection("Cache", &global.CacheSetting)
 	if err != nil {
 		return nil
 	}
@@ -141,6 +145,16 @@ func setupSetting() error {
 func setupDBEngine() error {
 	var err error
 	global.DBEngine, err = model.NewDBEngine(global.DatabaseSetting)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+//初始化redis连接池
+func setupCache() error {
+	var err error
+	global.Redis, err = cache.NewRedis(global.CacheSetting)
 	if err != nil {
 		return err
 	}

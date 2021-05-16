@@ -8,9 +8,12 @@ import (
 	"blog/pkg/errcode"
 	"blog/pkg/util"
 	"fmt"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
+
+var cacheTime time.Duration
 
 func Login(c *gin.Context) {
 	param := request.LoginRequest{}
@@ -29,7 +32,9 @@ func Login(c *gin.Context) {
 		resp.ToErrorResponse(errcode.ErrorUserNotExist)
 		return
 	}
-	param.Password = util.UserPassword(param.Password, fmt.Sprintf("%d", user.ID))
+	uidStr := fmt.Sprintf("%d", user.ID)
+
+	param.Password = util.UserPassword(param.Password, uidStr)
 	if user.Passwd != param.Password {
 		global.Logger.Errorf("user.password err: %v", err)
 		resp.ToErrorResponse(errcode.ErrorUserPasswordFail)
@@ -42,6 +47,12 @@ func Login(c *gin.Context) {
 		return
 	}
 	//存储用户信息
+	cacheTime = 86400 * 15
+	err = global.Redis.Set(c, "uid"+uidStr, uidStr, cacheTime).Err()
+	if err != nil {
+		panic(err)
+	}
+
 	data := make(map[string]string, 1)
 	data["token"] = token
 	resp.ToResponse(gin.H{
