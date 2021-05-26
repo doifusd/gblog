@@ -26,14 +26,9 @@ func NewResponse(ctx *gin.Context) *Response {
 
 //ToResponse 响应方法
 func (r *Response) ToResponse(data interface{}) {
-	// resp := gin.H{"code": err.Code(), "msg": err.Msg()}
-	// details := err.Details()
 	if data == nil {
 		data = gin.H{}
 	}
-	// if len(details) > 0 {
-	// resp["details"] = details
-	// }
 	r.Ctx.JSON(http.StatusOK, data)
 }
 
@@ -57,4 +52,13 @@ func (r *Response) ToErrorResponse(err *errcode.Error) {
 		resp["details"] = details
 	}
 	r.Ctx.JSON(err.StatusCode(), resp)
+}
+
+func (r *Response) ToSuccessResponse(err *errcode.Error) {
+	resp := gin.H{"code": err.Code(), "msg": err.Msg()}
+	details := err.Details()
+	if len(details) > 0 {
+		resp["details"] = details
+	}
+	r.Ctx.JSON(http.StatusOK, resp)
 }

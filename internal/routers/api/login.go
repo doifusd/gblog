@@ -47,18 +47,18 @@ func Login(c *gin.Context) {
 		return
 	}
 	//存储用户信息
-	cacheTime = 86400 * 15
-	err = global.Redis.Set(c, "uid"+uidStr, uidStr, cacheTime).Err()
+	cacheTime = 86400 * 15 * time.Second
+	err = global.Redis.Set(c, token+":uid", user.ID, cacheTime).Err()
 	if err != nil {
 		panic(err)
 	}
 
 	data := make(map[string]string, 1)
 	data["token"] = token
+
 	resp.ToResponse(gin.H{
-		"code": "100030008",
+		"code": "0",
 		"msg":  "登录成功",
 		"data": data,
-		// "token": token,
 	})
 }

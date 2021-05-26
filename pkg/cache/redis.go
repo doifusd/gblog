@@ -11,32 +11,6 @@ import (
 
 var gClient *redis.Client
 
-func printRedisPool(stats *redis.PoolStats) {
-	fmt.Printf("Hits=%d Misses=%d Timeouts=%d TotalConns=%d IdleConns=%d StaleConns=%d\n",
-		stats.Hits, stats.Misses, stats.Timeouts, stats.TotalConns, stats.IdleConns, stats.StaleConns)
-}
-
-//TODO add log ,get config
-func printRedisOption(opt *redis.Options) {
-	fmt.Printf("Network=%v\n", opt.Network)
-	fmt.Printf("Addr=%v\n", opt.Addr)
-	fmt.Printf("Password=%v\n", opt.Password)
-	fmt.Printf("DB=%v\n", opt.DB)
-	fmt.Printf("MaxRetries=%v\n", opt.MaxRetries)
-	fmt.Printf("MinRetryBackoff=%v\n", opt.MinRetryBackoff)
-	fmt.Printf("MaxRetryBackoff=%v\n", opt.MaxRetryBackoff)
-	fmt.Printf("DialTimeout=%v\n", opt.DialTimeout)
-	fmt.Printf("ReadTimeout=%v\n", opt.ReadTimeout)
-	fmt.Printf("WriteTimeout=%v\n", opt.WriteTimeout)
-	fmt.Printf("PoolSize=%v\n", opt.PoolSize)
-	fmt.Printf("MinIdleConns=%v\n", opt.MinIdleConns)
-	fmt.Printf("MaxConnAge=%v\n", opt.MaxConnAge)
-	fmt.Printf("PoolTimeout=%v\n", opt.PoolTimeout)
-	fmt.Printf("IdleTimeout=%v\n", opt.IdleTimeout)
-	fmt.Printf("IdleCheckFrequency=%v\n", opt.IdleCheckFrequency)
-	fmt.Printf("TLSConfig=%v\n", opt.TLSConfig)
-}
-
 func NewRedis(cacheSetting *setting.CacheSettings) (*redis.Client, error) {
 	gClient = redis.NewClient(&redis.Options{
 		//连接信息
@@ -71,9 +45,9 @@ func NewRedis(cacheSetting *setting.CacheSettings) (*redis.Client, error) {
 		//		}
 		//		return netDialer.Dial("tcp", "127.0.0.1:6379")
 		//	},
-
 		//钩子函数
-		// OnConnect: func(conn *redis.Conn) error { //仅当客户端执行命令时需要从连接池获取连接时，如果连接池需要新建连接时则会调用此钩子函数
+		// OnConnect: func(conn *redis.Conn) error {
+		// //仅当客户端执行命令时需要从连接池获取连接时，如果连接池需要新建连接时则会调用此钩子函数
 		// fmt.Printf("conn=%v\n", conn)
 		// return nil
 		// },
@@ -85,4 +59,30 @@ func NewRedis(cacheSetting *setting.CacheSettings) (*redis.Client, error) {
 	// defer gClient.Close()
 	// printRedisOption(gClient.Options())
 	// printRedisPool(gClient.PoolStats())
+}
+
+func printRedisPool(stats *redis.PoolStats) {
+	fmt.Printf("Hits=%d Misses=%d Timeouts=%d TotalConns=%d IdleConns=%d StaleConns=%d\n",
+		stats.Hits, stats.Misses, stats.Timeouts, stats.TotalConns, stats.IdleConns, stats.StaleConns)
+}
+
+//TODO add log ,get config
+func printRedisOption(opt *redis.Options) {
+	fmt.Printf("Network=%v\n", opt.Network)
+	fmt.Printf("Addr=%v\n", opt.Addr)
+	fmt.Printf("Password=%v\n", opt.Password)
+	fmt.Printf("DB=%v\n", opt.DB)
+	fmt.Printf("MaxRetries=%v\n", opt.MaxRetries)
+	fmt.Printf("MinRetryBackoff=%v\n", opt.MinRetryBackoff)
+	fmt.Printf("MaxRetryBackoff=%v\n", opt.MaxRetryBackoff)
+	fmt.Printf("DialTimeout=%v\n", opt.DialTimeout)
+	fmt.Printf("ReadTimeout=%v\n", opt.ReadTimeout)
+	fmt.Printf("WriteTimeout=%v\n", opt.WriteTimeout)
+	fmt.Printf("PoolSize=%v\n", opt.PoolSize)
+	fmt.Printf("MinIdleConns=%v\n", opt.MinIdleConns)
+	fmt.Printf("MaxConnAge=%v\n", opt.MaxConnAge)
+	fmt.Printf("PoolTimeout=%v\n", opt.PoolTimeout)
+	fmt.Printf("IdleTimeout=%v\n", opt.IdleTimeout)
+	fmt.Printf("IdleCheckFrequency=%v\n", opt.IdleCheckFrequency)
+	fmt.Printf("TLSConfig=%v\n", opt.TLSConfig)
 }

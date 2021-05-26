@@ -1,8 +1,10 @@
 package middleware
 
 import (
+	"blog/global"
 	"blog/pkg/app"
 	"blog/pkg/errcode"
+
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 )
@@ -31,6 +33,7 @@ func JWT() gin.HandlerFunc {
 				}
 			}
 		}
+
 		if ecode != errcode.Success {
 			resp := app.NewResponse(c)
 			resp.ToErrorResponse(ecode)
@@ -38,6 +41,11 @@ func JWT() gin.HandlerFunc {
 			c.Abort()
 			return
 		}
+		uid, err := global.Redis.Get(c, token+":uid").Result()
+		if err != nil {
+			panic(err)
+		}
+		c.Set("uid", uid)
 		c.Next()
 	}
 }

@@ -7,7 +7,6 @@ import (
 	"blog/pkg/app"
 	"blog/pkg/convert"
 	"blog/pkg/errcode"
-	"fmt"
 
 	"github.com/gin-gonic/gin"
 )
@@ -64,13 +63,12 @@ func (t Tag) List(c *gin.Context) {
 // @Summary 新增标签
 // @Produce json
 // @Param name body string true "标签名称" minlength(3) maxlength(100)
-// @Param created_by body string true "创建者" minlength(3) maxlength(100)
 // @Success 200 {object} model.Tag "成功"
 // @Failure 400 {object} errcode.Error "请求错误"
 // @Failure 500 {object} errcode.Error "内部错误"
 // @Router /api/v1/tags [post]
 func (t Tag) Create(c *gin.Context) {
-	param := request.CrateTagResquest{}
+	param := request.CreateTagResquest{}
 	resp := app.NewResponse(c)
 	valid, err := app.BindAndValid(c, &param)
 	if !valid {
@@ -81,6 +79,8 @@ func (t Tag) Create(c *gin.Context) {
 	}
 	svc := service.New(c.Request.Context())
 	//检测数据是否存在
+	uid, _ := c.Get("uid")
+	param.CreatedBy = convert.StrTo(uid.(string)).MustUInt32()
 	checkTag, _ := svc.GetTag(&param)
 	if checkTag > 0 {
 		resp.ToErrorResponse(errcode.ErrorTagExist)
@@ -92,8 +92,7 @@ func (t Tag) Create(c *gin.Context) {
 		resp.ToErrorResponse(errcode.ErrorCreateTagFail)
 		return
 	}
-	// resp.ToResponse(gin.H{"code": "100010001", "msg": "添加标签成功"})
-	resp.ToErrorResponse(errcode.SuccessCreateTag)
+	resp.ToSuccessResponse(errcode.SuccessCreateTag)
 	return
 }
 
@@ -102,7 +101,6 @@ func (t Tag) Create(c *gin.Context) {
 // @Param id path int true "标签ID"
 // @Param name body string true "标签名称" minlength(3) maxlength(100)
 // @Param state body int false "状态" Enums(0,1) default(1)
-// @Param modified_by body string true "修改者" minlength(3) maxlength(100)
 // @Success 200 {array} model.Tag "成功"
 // @Failure 400 {object} errcode.Error "请求错误"
 // @Failure 500 {object} errcode.Error "内部错误"
@@ -113,23 +111,25 @@ func (t Tag) Update(c *gin.Context) {
 	}
 	resp := app.NewResponse(c)
 	valid, err := app.BindAndValid(c, &param)
-	fmt.Println(valid)
 	if !valid {
 		global.Logger.Errorf("app.BindAndValid errs: %v", err)
 		errRsp := errcode.IntvalidParams.WithDetails(err.Errors()...)
 		resp.ToErrorResponse(errRsp)
 		return
 	}
-	modifiedBy := ""
+	param.ModifiedBy = 0
+	uid, exit := c.Get("uid")
+	if exit == true {
+		param.ModifiedBy = convert.StrTo(uid.(string)).MustUInt32()
+	}
 	svc := service.New(c.Request.Context())
-	errs := svc.UpdateTag(&param, modifiedBy)
+	errs := svc.UpdateTag(&param)
 	if errs != nil {
 		global.Logger.Errorf("svc.UpdateTag errs: %v", errs)
 		resp.ToErrorResponse(errcode.ErrorUpdateTagFail)
 		return
 	}
-	// resp.ToResponse(gin.H{})
-	resp.ToErrorResponse(errcode.SuccessUpdateTag)
+	resp.ToSuccessResponse(errcode.SuccessUpdateTag)
 	return
 }
 
@@ -153,14 +153,18 @@ func (t Tag) Delete(c *gin.Context) {
 		return
 	}
 	svc := service.New(c.Request.Context())
+	param.ModifiedBy = 0
+	uid, exit := c.Get("uid")
+	if exit == true {
+		param.ModifiedBy = convert.StrTo(uid.(string)).MustUInt32()
+	}
 	errs := svc.DeleteTag(&param)
 	if errs != nil {
-		global.Logger.Errorf("svc.UpdateTag errs: %v", errs)
+		global.Logger.Errorf("svc.delTag errs: %v", errs)
 		resp.ToErrorResponse(errcode.ErrorDeleateTagFail)
 		return
 	}
-	// resp.ToResponse(gin.H{})
-	resp.ToErrorResponse(errcode.SuccessDeleteTag)
+	resp.ToSuccessResponse(errcode.SuccessDeleteTag)
 	return
 }
 

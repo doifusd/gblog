@@ -14,19 +14,18 @@ func (svc *Service) GetTagList(param *request.TagListRequest, pager *app.Pager) 
 	return svc.dao.GetTagList(param.Name, param.State, pager.Page, pager.PageSize)
 }
 
-func (svc *Service) GetTag(param *request.CrateTagResquest) (int64, error) {
+func (svc *Service) GetTag(param *request.CreateTagResquest) (int64, error) {
 	return svc.dao.GetTag(param.Name, param.CreatedBy)
 }
 
-func (svc *Service) CreateTag(param *request.CrateTagResquest) error {
-	// return svc.dao.CreateTag(param.Name, param.State, param.CreatedBy)
+func (svc *Service) CreateTag(param *request.CreateTagResquest) error {
 	return svc.dao.CreateTag(param.Name, param.CreatedBy)
 }
 
-func (svc *Service) UpdateTag(param *request.UpdateTagRequest, ModifiedBy string) error {
-	return svc.dao.UpdateTag(param.ID, param.Name, param.State, ModifiedBy)
+func (svc *Service) UpdateTag(param *request.UpdateTagRequest) error {
+	return svc.dao.UpdateTag(param.ID, param.Name, param.State, param.ModifiedBy)
 }
 
 func (svc *Service) DeleteTag(param *request.DeleteTagRequest) error {
-	return svc.dao.DeleteTag(param.ID)
+	return svc.dao.DeleteTag(param.ID, param.ModifiedBy)
 }

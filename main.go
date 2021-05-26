@@ -43,6 +43,10 @@ func init() {
 	if err != nil {
 		log.Fatalf("init.setupDBEngine err: %v", err)
 	}
+	err = setupCache()
+	if err != nil {
+		log.Fatalf("init.setupCache err: %v", err)
+	}
 	err = setupLogger()
 	if err != nil {
 		log.Fatalf("init.setuplogger err: %v", err)

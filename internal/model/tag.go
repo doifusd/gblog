@@ -7,8 +7,8 @@ import (
 type Tag struct {
 	*Model
 	Name       string `json:"name"`
-	CreatedBy  string `gorm:"column:created_by;default:null" json:"created_by"`
-	ModifiedBy string `gorm:"column:modified_by;default:null" json:"modified_by"`
+	CreatedBy  uint32 `gorm:"column:created_by;" json:"created_by"`
+	ModifiedBy uint32 `gorm:"column:modified_by;default:0" json:"modified_by"`
 }
 
 func (t Tag) TableName() string {
@@ -47,16 +47,15 @@ func (t Tag) Create(db *gorm.DB) error {
 }
 
 func (t Tag) Update(db *gorm.DB, values interface{}) error {
-	//对0值判断
-	err := db.Model(t).Where("id=? and is_del=?", t.ID, 0).Updates(values).Error
+	err := db.Model(t).Updates(values).Error
 	if err != nil {
 		return err
 	}
 	return nil
 }
 
-func (t Tag) Delete(db *gorm.DB) error {
-	return db.Where("id=? and is_del=?", t.Model.ID, 0).Delete(&t).Error
+func (t Tag) Delete(db *gorm.DB, values interface{}) error {
+	return db.Model(t).Where("state=?", 1).Update(values).Error
 }
 
 func (t Tag) GetOne(db *gorm.DB) (int64, error) {

@@ -1,32 +1,33 @@
 package errcode
 
 var (
-	ErrorGetTagListFail = NewError(20010001, "获取标签列表失败")
-	ErrorCreateTagFail  = NewError(20010002, "创建标签失败")
-	ErrorUpdateTagFail  = NewError(20010003, "更新标签失败")
-	ErrorDeleateTagFail = NewError(20010004, "删除标签失败")
-	ErrorCountTagFail   = NewError(20010005, "统计标签失败")
-	ErrorTagExist       = NewError(20040001, "标签已经存在")
+	SuccessCreateUser     = NewError(101200, "用户注册成功")
+	SuccessLoginUser      = NewError(102200, "用户登录成功")
+	SuccessUpdateUser     = NewError(103200, "用户编辑成功")
+	SuccessDeleteUser     = NewError(104200, "用户删除成功")
+	ErrorUserExist        = NewError(101201, "用户已经存在")
+	ErrorCreateUserFail   = NewError(101400, "用户注册失败")
+	ErrorUserNotExist     = NewError(100404, "用户不存在")
+	ErrorUserPasswordFail = NewError(100412, "用户密码错误")
 
-	SuccessCreateTag = NewError(100010001, "添加标签成功")
-	SuccessUpdateTag = NewError(100010002, "编辑标签成功")
-	SuccessDeleteTag = NewError(100010003, "删除标签成功")
+	SuccessCreateTag    = NewError(200200, "添加标签成功")
+	SuccessUpdateTag    = NewError(200201, "编辑标签成功")
+	SuccessDeleteTag    = NewError(200202, "删除标签成功")
+	ErrorCreateTagFail  = NewError(200501, "创建标签失败")
+	ErrorUpdateTagFail  = NewError(200502, "更新标签失败")
+	ErrorDeleateTagFail = NewError(200503, "删除标签失败")
+	ErrorGetTagListFail = NewError(200504, "获取标签列表失败")
+	ErrorCountTagFail   = NewError(200505, "统计标签失败")
+	ErrorTagExist       = NewError(200206, "标签已经存在")
 
-	ErrorUploadFileFail = NewError(20030001, "上传文件失败")
+	SuccessCreateArticle    = NewError(300200, "添加文章成功")
+	SuccessUpdateArticle    = NewError(300201, "编辑文章成功")
+	SuccessDeleteArticle    = NewError(300202, "删除文章成功")
+	ErrorCreateArticleFail  = NewError(300501, "创建文章失败")
+	ErrorUpdateArticleFail  = NewError(300502, "更新文章失败")
+	ErrorDeleateArticleFail = NewError(300503, "删除文章失败")
+	ErrorGetArticleListFail = NewError(300504, "获取文章列表失败")
+	ErrorCountArticleFail   = NewError(300505, "统计文章失败")
 
-	SuccessCreateArticle = NewError(100020001, "添加文章成功")
-	SuccessUpdateArticle = NewError(100020002, "编辑文章成功")
-	SuccessDeleteArticle = NewError(100020003, "删除文章成功")
-
-	SuccessCreateUser   = NewError(100030001, "用户注册成功")
-	ErrorUserExist      = NewError(100030004, "用户已经存在")
-	ErrorCreateUserFail = NewError(100030005, "用户注册失败")
-
-	ErrorUserNotExist     = NewError(100030006, "用户不存在")
-	ErrorUserPasswordFail = NewError(100030007, "用户密码错误")
-
-	SuccessLoginUser = NewError(100030008, "用户登录成功")
-
-	SuccessUpdateUser = NewError(100030002, "用户编辑成功")
-	SuccessDeleteUser = NewError(100030003, "用户删除成功")
+	ErrorUploadFileFail = NewError(600500, "上传文件失败")
 )

@@ -1,30 +1,39 @@
 package request
 
 type CountArticleRequest struct {
-	CreatedBy string `form:"created_by" binding:"max=100"`
-	State     uint8  `form:"state,default=1" binding:"oneof=0 1"`
+	CreatedBy uint32 `json:"created_by" binding:"required"`
+	State     uint8  `json:"state,default=1" binding:"oneof=0 1"`
 }
 
 type ArticleListRequest struct {
-	CreatedBy string `form:"created_by" binding:"max=100"`
-	State     uint8  `form:"state,default=1" binding:"oneof=0 1"`
+	CreatedBy uint32 `json:"created_by" binding:"required"`
+	State     uint8  `json:"state" binding:"omitempty,oneof=1 2"`
+	// Page      int    `json:"page" binding:"required"`
+	// Size      int    `json:"size" binding:"required"`
 }
 
-type CrateArticleResquest struct {
-	Title         string `form:"title" binding:"required,min=3,max=100"`
-	Desc          string `form:"descs" binding:"required,min=3,max=300"`
-	Content       string `form:"content" binding:"required,min=3,max=10000000"`
-	CoverImageUrl string `form:"img" binding:"min=3,max=1000"`
-	CreatedBy     string `form:"created_by" binding:"required,min=3,max=100"`
-	State         uint8  `form:"state,default=1" binding:"oneof=0 1"`
+type CreateArticleResquest struct {
+	Title     string   `json:"title" binding:"required,min=3,max=100"`
+	Desc      string   `json:"desc" binding:"required,min=3,max=300"`
+	Content   string   `json:"content" binding:"required,min=3"`
+	Cover     string   `json:"cover" binding:"min=3"`
+	CreatedBy uint32   `json:"created_by"`
+	State     uint8    `json:"state,default=1"`
+	Tags      []uint32 `json:"tags"`
 }
 
 type UpdateArticleRequest struct {
-	ID         uint32 `form:"id" binding:"required,gte=1"`
-	State      uint8  `form:"state,default=1" binding:"required,oneof=0 1"`
-	ModifiedBy string `form:"modified_by" binding:"required,min=3,max=100"`
+	ID         uint32   `json:"id" binding:"required,gte=1"`
+	Title      string   `json:"title" binding:"required,min=3,max=100"`
+	Desc       string   `json:"desc" binding:"required,min=3,max=300"`
+	Content    string   `json:"content" binding:"required,min=3"`
+	Cover      string   `json:"cover"`
+	State      uint8    `json:"state" binding:"omitempty,oneof=1 2"`
+	ModifiedBy uint32   `json:"modified_by"`
+	Tags       []uint32 `json:"tags"`
 }
 
 type DeleteArticleRequest struct {
-	ID uint32 `form:"id" binding:"required,gte=1"`
+	ID         uint32 `json:"id" binding:"required,gte=1"`
+	ModifiedBy uint32 `json:"modified_by"`
 }
