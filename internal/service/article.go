@@ -10,6 +10,10 @@ func (svc *Service) CountArtilce(param *request.CountArticleRequest) (int64, err
 	return svc.dao.CountArticle(param.CreatedBy, param.State)
 }
 
+func (svc *Service) GetArticleInfo(param *request.ArticleInfoRequest) (*model.Article, error) {
+	return svc.dao.GetArticleInfo(param.ArticleID)
+}
+
 func (svc *Service) GetArticleList(param *request.ArticleListRequest, pager *app.Pager) ([]*model.Article, error) {
 	return svc.dao.GetArticleList(param.CreatedBy, param.State, pager.Page, pager.PageSize)
 }

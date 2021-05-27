@@ -7,6 +7,7 @@ import (
 	"blog/pkg/app"
 	"blog/pkg/convert"
 	"blog/pkg/errcode"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -33,6 +34,7 @@ func NewTag() Tag {
 // @Failure 500 {object} errcode.Error "内部错误"
 // @Router /api/v1/tags [get]
 func (t Tag) List(c *gin.Context) {
+	start_time := time.Now().UnixNano()
 	param := request.TagListRequest{}
 	resp := app.NewResponse(c)
 	valid, errs := app.BindAndValid(c, &param)
@@ -56,7 +58,9 @@ func (t Tag) List(c *gin.Context) {
 		resp.ToErrorResponse(errcode.ErrorGetTagListFail)
 		return
 	}
-	resp.ToResponseList(tags, int(totalRows))
+	stop_time := time.Now().UnixNano()
+	e_time := (stop_time - start_time) / 1e6
+	resp.ToResponseList(tags, int(totalRows), e_time)
 	return
 }
 
@@ -168,4 +172,35 @@ func (t Tag) Delete(c *gin.Context) {
 	return
 }
 
-func (t Tag) Get(c *gin.Context) {}
+// @Summary 获取标签详情
+// @Produce json
+// @Param id query string false "文章id"
+// @Success 200 {object} model.Article "成功"
+// @Failure 400 {object} errcode.Error "请求错误"
+// @Failure 500 {object} errcode.Error "内部错误"
+// @Router /api/v1/aritlce/:id [get]
+func (t Tag) Info(c *gin.Context) {
+	start_time := time.Now().UnixNano()
+	resp := app.NewResponse(c)
+	param := request.TagInfoRequest{}
+	valid, errs := app.BindAndValid(c, &param)
+	if !valid {
+		global.Logger.Errorf("app.BindAndValid errs: %v", errs)
+		errRsp := errcode.IntvalidParams.WithDetails(errs.Errors()...)
+		resp.ToErrorResponse(errRsp)
+		return
+	}
+
+	svc := service.New(c.Request.Context())
+	tag, err := svc.GetTagInfo(&param)
+	if err != nil {
+		global.Logger.Errorf("svc.TagInfo errs: %v", err)
+		resp.ToErrorResponse(errcode.ErrorGetTagFail)
+		return
+	}
+	stop_time := time.Now().UnixNano()
+	e_time := (stop_time - start_time) / 1e6
+	data := gin.H{"code": errcode.SuccessGetTag.Code(), "msg": errcode.SuccessGetTag.Msg(), "info": tag, "e_time": e_time}
+	resp.ToResponse(data)
+	return
+}

@@ -16,6 +16,7 @@ import (
 var cacheTime time.Duration
 
 func Login(c *gin.Context) {
+	start_time := time.Now().UnixNano()
 	param := request.LoginRequest{}
 	resp := app.NewResponse(c)
 	valid, errs := app.BindAndValid(c, &param)
@@ -25,6 +26,7 @@ func Login(c *gin.Context) {
 		resp.ToErrorResponse(errResp)
 		return
 	}
+	c.Set("is_test", 1)
 	svc := service.New(c.Request.Context())
 	user, err := svc.CheckUser(&param)
 	if err != nil {
@@ -53,9 +55,14 @@ func Login(c *gin.Context) {
 		panic(err)
 	}
 
-	data := make(map[string]string, 1)
+	data := make(map[string]string, 2)
 	data["token"] = token
-
+	stop_time := time.Now().UnixNano()
+	exec_time := (stop_time - start_time) / 1e6
+	is_test, is_exist := c.Get("is_test")
+	if is_exist == true && is_test == 1 {
+		data["e_time"] = fmt.Sprintf("%d", exec_time)
+	}
 	resp.ToResponse(gin.H{
 		"code": "0",
 		"msg":  "登录成功",

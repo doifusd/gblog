@@ -5,11 +5,13 @@ type CountArticleRequest struct {
 	State     uint8  `json:"state,default=1" binding:"oneof=0 1"`
 }
 
+type ArticleInfoRequest struct {
+	ArticleID uint32 `json:"article_id" binding:"required"`
+}
+
 type ArticleListRequest struct {
 	CreatedBy uint32 `json:"created_by" binding:"required"`
 	State     uint8  `json:"state" binding:"omitempty,oneof=1 2"`
-	// Page      int    `json:"page" binding:"required"`
-	// Size      int    `json:"size" binding:"required"`
 }
 
 type CreateArticleResquest struct {

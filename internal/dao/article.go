@@ -17,6 +17,11 @@ func (d *Dao) GetArticleList(createdBy uint32, state uint8, page, pageSize int) 
 	return article.List(d.engine, pageOffset, pageSize)
 }
 
+func (d *Dao) GetArticleInfo(articleId uint32) (*model.Article, error) {
+	article := model.Article{Model: &model.Model{ID: articleId}}
+	return article.Info(d.engine, articleId)
+}
+
 func (d *Dao) CreateArticle(title string, desc string, content string, cover string, createdBy uint32, tagIds []uint32) error {
 	article := model.Article{
 		Model:     &model.Model{State: 1},
@@ -66,9 +71,4 @@ func (d *Dao) DeleteArticle(id uint32, modifiedBy uint32) error {
 		"deleted_on":  time.Now().Format("2006-01-02 15:04:05"),
 	}
 	return article.Delete(d.engine, values)
-}
-
-func (d *Dao) GetArticle(id uint32) (*model.Article, error) {
-	article := model.Article{Model: &model.Model{ID: id}}
-	return article.GetOne(d.engine)
 }

@@ -65,17 +65,17 @@ func NewRoter() *gin.Engine {
 		apiV1.POST("/tags", tag.Create)
 		apiV1.DELETE("/tags/:id", tag.Delete)
 		apiV1.PUT("/tags/:id", tag.Update)
-		//TODO 待校验
-		apiV1.PATCH("/tags/:id/state", tag.Update)
 		apiV1.GET("/tags", tag.List)
+		apiV1.GET("/tag/:id", tag.Info)
+		// apiV1.PATCH("/tags/:id/state", tag.Update)
 
 		apiV1.POST("/articles", article.Create)
 		apiV1.PUT("/article/:id", article.Update)
 		apiV1.DELETE("/article/:id", article.Delete)
-		//TODO 待校验
-		apiV1.PATCH("/article/:id/state", article.Update)
 		apiV1.GET("/articles", article.List)
-		apiV1.GET("/article/:id", article.Get)
+		//TODO 待校验
+		// apiV1.PATCH("/article/:id/state", article.Update)
+		apiV1.GET("/article/:id", article.Info)
 	}
 	return r
 }

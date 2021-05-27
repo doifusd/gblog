@@ -33,15 +33,36 @@ func (r *Response) ToResponse(data interface{}) {
 }
 
 //ToResponseList 响应列表
-func (r *Response) ToResponseList(list interface{}, totalRows int) {
+func (r *Response) ToResponseList(list interface{}, totalRows int, etime int64) {
 	r.Ctx.JSON(http.StatusOK, gin.H{
+		"msg":  "success",
+		"code": 0,
 		"list": list,
 		"pager": Pager{
 			Page:      GetPage(r.Ctx),
 			PageSize:  GetPageSize(r.Ctx),
 			TotalRows: totalRows,
 		},
+		"e_time": etime,
 	})
+}
+
+func (r *Response) ToErrResponseList(err *errcode.Error) {
+	resp := gin.H{
+		"msg":  err.Msg(),
+		"code": err.Code(),
+		"list": []struct{}{},
+		"pager": Pager{
+			Page:      0,
+			PageSize:  0,
+			TotalRows: 0,
+		},
+	}
+	details := err.Details()
+	if len(details) > 0 {
+		resp["details"] = details
+	}
+	r.Ctx.JSON(err.StatusCode(), resp)
 }
 
 //ToErrorResponse 错误响应

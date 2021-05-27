@@ -15,11 +15,11 @@ import (
 )
 
 type Model struct {
-	ID uint32 `gorm:"primary_key;auto_increment"`
-	// CreatedOn  string `gorm:"column:created_on;default:timestamp" json:"created_on"`
-	// ModifiedOn string `gorm:"column:modified_on;default:0" json:"modified_on"`
-	DeletedOn string `gorm:"column:deleted_on;default:0" json:"deleted_on"`
-	State     uint8  `gorm:"column:state;default:1" json:"state"`
+	ID         uint32 `gorm:"primary_key;auto_increment;type uint" json:"id"`
+	CreatedOn  string `gorm:"<-:create;column:created_on;default:timestamp" json:"created_on"`
+	ModifiedOn string `gorm:"<-:update;column:modified_on;default:0" json:"modified_on"`
+	DeletedOn  string `gorm:"<-:create;column:deleted_on;default:0" json:"deleted_on"`
+	State      uint8  `gorm:"column:state;default:1" json:"state"`
 }
 
 var nowTime = func() string {

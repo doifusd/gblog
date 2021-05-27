@@ -6,9 +6,10 @@ import (
 )
 
 type Error struct {
-	code    int      `json:"code"`
-	msg     string   `json:"msg"`
-	details []string `json:"details"`
+	code    int                    `json:"code"`
+	msg     string                 `json:"msg"`
+	details []string               `json:"details"`
+	data    map[string]interface{} `json:"data"`
 }
 
 var Codes = map[int]string{}
@@ -39,12 +40,22 @@ func (e *Error) Details() []string {
 	return e.details
 }
 
+func (e *Error) Data() map[string]interface{} {
+	return e.data
+}
+
 func (e *Error) WithDetails(details ...string) *Error {
 	newError := *e
 	newError.details = []string{}
 	for _, d := range details {
 		newError.details = append(newError.details, d)
 	}
+	return &newError
+}
+
+func (e *Error) WithData(data map[string]interface{}) *Error {
+	newError := *e
+	newError.data = data
 	return &newError
 }
 
