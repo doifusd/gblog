@@ -47,6 +47,7 @@ func NewRoter() *gin.Engine {
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	upload := NewUpload()
 	r.POST("upload/file", upload.UploadFile)
+	r.POST("upload/files", upload.UploadFileMuli)
 	r.StaticFS("/static", http.Dir(global.AppSetting.UpLoadSavePath))
 
 	// 注册
@@ -57,8 +58,6 @@ func NewRoter() *gin.Engine {
 	article := v1.NewArticle()
 	tag := v1.NewTag()
 
-	// r.GET("/auth", api.GetAuth)
-
 	apiV1 := r.Group("/api/v1")
 	apiV1.Use(middleware.JWT())
 	{
@@ -67,14 +66,11 @@ func NewRoter() *gin.Engine {
 		apiV1.PUT("/tags/:id", tag.Update)
 		apiV1.GET("/tags", tag.List)
 		apiV1.GET("/tag/:id", tag.Info)
-		// apiV1.PATCH("/tags/:id/state", tag.Update)
 
 		apiV1.POST("/articles", article.Create)
 		apiV1.PUT("/article/:id", article.Update)
 		apiV1.DELETE("/article/:id", article.Delete)
 		apiV1.GET("/articles", article.List)
-		//TODO 待校验
-		// apiV1.PATCH("/article/:id/state", article.Update)
 		apiV1.GET("/article/:id", article.Info)
 	}
 	return r

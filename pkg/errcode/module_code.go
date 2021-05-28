@@ -34,4 +34,5 @@ var (
 	ErrorGetArticleFail     = NewError(300506, "获取文章失败")
 
 	ErrorUploadFileFail = NewError(600500, "上传文件失败")
+	ErrorUploadExtFail  = NewError(600501, "此文件不允许上传")
 )

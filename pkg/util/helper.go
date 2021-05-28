@@ -15,3 +15,12 @@ func UserPassword(Password, uid string) string {
 	encodedStr := hex.EncodeToString(tmps)
 	return string(encodedStr)
 }
+
+func InArray(search string, array []string) bool {
+	for _, v := range array {
+		if search == v {
+			return true
+		}
+	}
+	return false
+}
