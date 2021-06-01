@@ -5,7 +5,6 @@ import (
 	"blog/internal/middleware"
 	"blog/internal/routers/api"
 	v1 "blog/internal/routers/api/v1"
-	"blog/pkg/limiter"
 	"net/http"
 	"time"
 
@@ -17,14 +16,15 @@ import (
 )
 
 //限流器
+/*
 var methodLimiters = limiter.NewMethodLimiter().AddBucket(
 	limiter.LimiterBucketRule{
-		Key:          "/auth",
+		Key:          "/sign_in",
 		FillInterval: time.Second,
 		Capacity:     10,
 		Quantum:      10,
 	},
-)
+)*/
 
 //NewRoter 初始化路由器
 func NewRoter() *gin.Engine {
@@ -36,7 +36,8 @@ func NewRoter() *gin.Engine {
 		r.Use(middleware.AccessLog())
 		r.Use(middleware.Recovery())
 	}
-	r.Use(middleware.RaleLimiter(methodLimiters))
+	// r.Use(middleware.RaleLimiter(methodLimiters))
+	r.Use(middleware.RedisLimiter())
 	//请求超时设置
 	//r.Use(middleware.ContextTimeout(60*time.Second))
 	r.Use(middleware.ContextTimeout(global.AppSetting.RequestTimeout * time.Second))
