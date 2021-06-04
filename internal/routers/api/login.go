@@ -49,8 +49,7 @@ func Login(c *gin.Context) {
 		return
 	}
 	//存储用户信息
-	// cacheTime = 86400 * 15 * time.Second
-	cacheTime = 20 * time.Second
+	cacheTime = global.JWTSetting.Expire * time.Second
 	err = global.Redis.Set(c, token+":uid", user.ID, cacheTime).Err()
 	if err != nil {
 		panic(err)
