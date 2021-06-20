@@ -24,6 +24,9 @@ type AppSettings struct {
 	UploadServerUrl      string
 	UploadImageMaxSize   int
 	UploadImageAllowExts []string
+	ExportSavePath       string
+	PrefixUrl            string
+	QrCodeSavePath       string
 }
 
 //DatabaseSettings 数据库配置

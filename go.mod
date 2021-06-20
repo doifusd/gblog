@@ -3,7 +3,10 @@ module blog
 go 1.15
 
 require (
+	github.com/360EntSecGroup-Skylar/excelize v1.4.1
+	github.com/EDDYCJY/go-gin-example v0.0.0-20201228125222-28f372bf41f9
 	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751
+	github.com/boombuler/barcode v1.0.1
 	github.com/cosmtrek/air v1.26.0 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.0 // indirect
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
@@ -42,10 +45,12 @@ require (
 	github.com/swaggo/files v0.0.0-20190704085106-630677cd5c14 // indirect
 	github.com/swaggo/gin-swagger v1.2.0
 	github.com/swaggo/swag v1.7.0
+	github.com/tealeg/xlsx v1.0.5
 	github.com/uber/jaeger-client-go v0.0.0-20200116211825-2d55657eac16
 	github.com/uber/jaeger-lib v2.4.1+incompatible // indirect
 	github.com/ugorji/go v1.2.5 // indirect
 	github.com/urfave/cli v1.22.5 // indirect
+	go.opentelemetry.io/otel v0.20.0
 	go.uber.org/atomic v1.7.0 // indirect
 	golang.org/x/crypto v0.0.0-20210322153248-0c34fe9e7dc2 // indirect
 	golang.org/x/net v0.0.0-20210410081132-afb366fc7cd1 // indirect

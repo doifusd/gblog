@@ -7,6 +7,7 @@ import (
 	"blog/pkg/app"
 	"blog/pkg/convert"
 	"blog/pkg/errcode"
+	"blog/pkg/export"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -203,4 +204,31 @@ func (t Tag) Info(c *gin.Context) {
 	data := gin.H{"code": errcode.SuccessGetTag.Code(), "msg": errcode.SuccessGetTag.Msg(), "info": tag, "e_time": e_time}
 	resp.ToResponse(data)
 	return
+}
+
+func (t Tag) Export(c *gin.Context) {
+	resp := app.NewResponse(c)
+	filename, err := service.ExportTag()
+	if err != nil {
+		return
+	}
+	data := gin.H{"code": "", "msg": "下载成功", "info": map[string]string{
+		"export_url": export.GetExcelFullUrl(filename),
+	}}
+	resp.ToResponse(data)
+	return
+}
+
+func (t *Tag) Import(c *gin.Context) {
+	resp := app.NewResponse(c)
+	file, _, err := c.Request.FormFile("file")
+	if err != nil {
+		return
+	}
+	err = service.ImportTag(file)
+	if err != nil {
+		return
+	}
+	data := gin.H{"code": "", "msg": "导入成功"}
+	resp.ToResponse(data)
 }

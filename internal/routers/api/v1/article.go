@@ -7,9 +7,15 @@ import (
 	"blog/pkg/app"
 	"blog/pkg/convert"
 	"blog/pkg/errcode"
+	"blog/pkg/qrcode"
 	"time"
 
+	"github.com/boombuler/barcode/qr"
 	"github.com/gin-gonic/gin"
+)
+
+const (
+	QRCODE_URL = "https://github.com/EDDYCJY/blog#gin%E7%B3%BB%E5%88%97%E7%9B%AE%E5%BD%95"
 )
 
 type Article struct{}
@@ -208,5 +214,19 @@ func (a Article) Delete(c *gin.Context) {
 		return
 	}
 	resp.ToSuccessResponse(errcode.SuccessDeleteArticle)
+	return
+}
+
+func (a Article) GenerateArticlePoster(c *gin.Context) {
+	resp := app.NewResponse(c)
+	qrc := qrcode.NewQrCode(QRCODE_URL, 300, 300, qr.M, qr.Auto)
+	path := qrcode.GetQrCodeFullPath()
+	_, _, err := qrc.Encode(path)
+	if err != nil {
+		resp.ToSuccessResponse(errcode.SuccessGetArticle)
+		return
+	}
+
+	resp.ToSuccessResponse(errcode.SuccessGetArticle)
 	return
 }

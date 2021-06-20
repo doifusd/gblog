@@ -5,6 +5,7 @@ import (
 	"blog/internal/middleware"
 	"blog/internal/routers/api"
 	v1 "blog/internal/routers/api/v1"
+	"blog/pkg/export"
 	"net/http"
 	"time"
 
@@ -50,6 +51,7 @@ func NewRoter() *gin.Engine {
 	r.POST("upload/file", upload.UploadFile)
 	r.POST("upload/files", upload.UploadFileMuli)
 	r.StaticFS("/static", http.Dir(global.AppSetting.UpLoadSavePath))
+	r.StaticFS("/export", http.Dir(export.GetExcelFullPath()))
 
 	// 注册
 	r.POST("/sign_up", api.SignUp)
@@ -68,11 +70,20 @@ func NewRoter() *gin.Engine {
 		apiV1.GET("/tags", tag.List)
 		apiV1.GET("/tag/:id", tag.Info)
 
+		apiV1.GET("/tag/export", tag.Export)
+
+		apiV1.POST("/tags/import", tag.Import)
+
 		apiV1.POST("/articles", article.Create)
 		apiV1.PUT("/article/:id", article.Update)
 		apiV1.DELETE("/article/:id", article.Delete)
 		apiV1.GET("/articles", article.List)
 		apiV1.GET("/article/:id", article.Info)
+
+		// apiv1.POST("/article/generate", article.GenerateQr)
+		apiV1.GET("/article/generate", article.GenerateArticlePoster)
+
 	}
+
 	return r
 }
